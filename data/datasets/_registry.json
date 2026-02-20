@@ -1,0 +1,40 @@
+[
+  {
+    "dataset_id": "8155ead56324",
+    "name": "training_transactions.smoke",
+    "file_path": "C:\\Users\\shubh\\hackspark2.0\\data\\training_transactions.smoke.csv",
+    "upload_date": "2026-02-20T21:52:00.799639+00:00",
+    "total_rows": 200000,
+    "total_columns": 12,
+    "fraud_count": 236,
+    "legit_count": 199764,
+    "fraud_ratio": 0.0012,
+    "risk_level": "Low",
+    "status": "Completed",
+    "file_size_bytes": 21153339,
+    "sha256": "993b82352c7fa65c1bd547ed3448d55ecbe93cb16b7528ae3f9b095755a1cbd6",
+    "notes": "",
+    "tags": [],
+    "fraud_pct": "0.1%",
+    "human_size": "20.2 MB"
+  },
+  {
+    "dataset_id": "b9c745056b35",
+    "name": "training_transactions.template",
+    "file_path": "C:\\Users\\shubh\\hackspark2.0\\data\\training_transactions.template.csv",
+    "upload_date": "2026-02-20T21:52:00.852202+00:00",
+    "total_rows": 5,
+    "total_columns": 12,
+    "fraud_count": 2,
+    "legit_count": 3,
+    "fraud_ratio": 0.4,
+    "risk_level": "High",
+    "status": "Completed",
+    "file_size_bytes": 562,
+    "sha256": "93c62ca4665b1260951935c593267877264de9d6462d0fdb2f7b765cc3fa94c7",
+    "notes": "",
+    "tags": [],
+    "fraud_pct": "40.0%",
+    "human_size": "562.0 B"
+  }
+]

@@ -1,0 +1,22 @@
+[
+  {
+    "rule_type": "high",
+    "description": "[AML-R001] High-Value Transaction Alert: Amount > 50000"
+  },
+  {
+    "rule_type": "high",
+    "description": "[AML-R002] Cross-Border Transfer Check: Sender_bank_location \u2260 Receiver_bank_location"
+  },
+  {
+    "rule_type": "medium",
+    "description": "[AML-R003] Currency Mismatch Detection: Payment_currency \u2260 Received_currency"
+  },
+  {
+    "rule_type": "medium",
+    "description": "[AML-R004] High-Risk Payment Type: Payment_type IN (Cash deposit, Cross-border)"
+  },
+  {
+    "rule_type": "high",
+    "description": "[AML-R005] Known Laundering Pattern: Laundering_type IS NOT EMPTY"
+  }
+]

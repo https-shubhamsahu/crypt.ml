@@ -1,0 +1,15 @@
+Run this in the activated .venv terminal:
+
+.\.venv-1\Scripts\python.exe -m streamlit run app/ui/hackathon_dashboard.py
+
+.\.venv-1\Scripts\python.exe -m uvicorn app.main:app --reload
+
+PowerShell shortcuts:
+
+./scripts/start_all.ps1
+
+./scripts/status_all.ps1
+
+./scripts/share_backend.ps1
+
+./scripts/stop_all.ps1

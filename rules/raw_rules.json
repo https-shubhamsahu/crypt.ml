@@ -1,0 +1,156 @@
+{
+  "aggregation": {
+    "method": "sum_top_k",
+    "top_k": 3,
+    "cap": 1.0
+  },
+  "note_terms": [
+    "mule",
+    "cashout",
+    "urgent",
+    "crypto",
+    "giftcard",
+    "untraceable",
+    "bypass"
+  ],
+  "rules": [
+    {
+      "rule_id": "R001",
+      "name": "Sanctions_Identifier_Hit",
+      "priority": "high",
+      "components": [
+        {
+          "id": "c1",
+          "description": "UPI/account matched watchlist",
+          "type": "watchlist_upi",
+          "weight": 1.0,
+          "params": {}
+        }
+      ]
+    },
+    {
+      "rule_id": "R002",
+      "name": "Velocity_HighTx_1h",
+      "priority": "high",
+      "components": [
+        {
+          "id": "c1",
+          "description": "Sender transaction count breached 1h threshold",
+          "type": "velocity_gt",
+          "weight": 0.7,
+          "params": {
+            "threshold": 5
+          }
+        },
+        {
+          "id": "c2",
+          "description": "Very high 1h velocity",
+          "type": "velocity_gte",
+          "weight": 0.3,
+          "params": {
+            "threshold": 9
+          }
+        }
+      ]
+    },
+    {
+      "rule_id": "R003",
+      "name": "HighValue_SingleTxn",
+      "priority": "medium",
+      "components": [
+        {
+          "id": "c1",
+          "description": "Amount crossed high-value threshold",
+          "type": "amount_gte",
+          "weight": 0.7,
+          "params": {
+            "threshold": 50000
+          }
+        },
+        {
+          "id": "c2",
+          "description": "Amount is extreme high-value",
+          "type": "amount_gte",
+          "weight": 0.3,
+          "params": {
+            "threshold": 125000
+          }
+        }
+      ]
+    },
+    {
+      "rule_id": "R004",
+      "name": "RoundAmount_Chaining",
+      "priority": "medium",
+      "components": [
+        {
+          "id": "c1",
+          "description": "Amount appears structured/round",
+          "type": "amount_round_multiple",
+          "weight": 0.4,
+          "params": {
+            "multiple": 1000
+          }
+        },
+        {
+          "id": "c2",
+          "description": "Round amount combined with elevated velocity",
+          "type": "amount_round_and_velocity",
+          "weight": 0.6,
+          "params": {
+            "multiple": 1000,
+            "velocity_threshold": 4
+          }
+        }
+      ]
+    },
+    {
+      "rule_id": "R005",
+      "name": "NewHandle_HeavyValue",
+      "priority": "medium",
+      "components": [
+        {
+          "id": "c1",
+          "description": "Transfer without UPI identifier",
+          "type": "upi_missing",
+          "weight": 0.4,
+          "params": {}
+        },
+        {
+          "id": "c2",
+          "description": "No UPI identifier with high amount",
+          "type": "upi_missing_and_amount_gte",
+          "weight": 0.6,
+          "params": {
+            "threshold": 37500
+          }
+        }
+      ]
+    },
+    {
+      "rule_id": "R006",
+      "name": "Narrative_RedFlags",
+      "priority": "medium",
+      "components": [
+        {
+          "id": "c1",
+          "description": "Transaction note contains suspicious terms",
+          "type": "note_terms_gte",
+          "weight": 0.5,
+          "params": {
+            "min_hits": 1
+          }
+        },
+        {
+          "id": "c2",
+          "description": "Transaction note contains multiple suspicious terms",
+          "type": "note_terms_gte",
+          "weight": 0.5,
+          "params": {
+            "min_hits": 2
+          }
+        }
+      ]
+    }
+  ]
+}

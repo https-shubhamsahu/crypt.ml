@@ -1,0 +1,20 @@
+{
+  "roc_auc": 0.929101,
+  "threshold": 1.6e-05,
+  "threshold_strategy": "recall_first",
+  "target_recall": 0.7,
+  "rows_used": 9504852,
+  "class_distribution": {
+    "0": 9494979,
+    "1": 9873
+  },
+  "features": [
+    "transaction_amount",
+    "tx_count_last_hour",
+    "has_upi",
+    "nlp_signal"
+  ],
+  "source_path": "data\\training_transactions.csv",
+  "model_type": "XGBoost",
+  "deterministic": true
+}

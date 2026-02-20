@@ -1,0 +1,6 @@
+Time,Date,Sender_account,Receiver_account,Amount,Payment_currency,Received_currency,Sender_bank_location,Receiver_bank_location,Payment_type,Is_laundering,Laundering_type
+10:05:00,2026-01-15,ACC_1001,ACC_9901,62000.00,INR,USD,IN,KY,Cross-border,1,Fan_out
+09:30:00,2026-01-15,ACC_1002,ACC_2002,3500.00,INR,INR,IN,IN,ACH,0,
+14:00:00,2026-01-15,ACC_1003,ACC_2003,9800.00,INR,INR,IN,IN,Credit Card,0,
+11:02:00,2026-01-15,ACC_1004,ACC_9902,125000.00,GBP,EUR,UK,CH,Cross-border,1,Layering
+08:15:00,2026-01-15,ACC_1005,ACC_2005,700.00,INR,INR,IN,IN,Debit Card,0,

@@ -1,0 +1,22 @@
+{
+  "method": "TreeExplainer",
+  "rows_evaluated": 1000,
+  "top_features": [
+    {
+      "feature": "tx_count_last_hour",
+      "mean_abs_shap": 2.322232
+    },
+    {
+      "feature": "nlp_signal",
+      "mean_abs_shap": 1.84691
+    },
+    {
+      "feature": "transaction_amount",
+      "mean_abs_shap": 1.18166
+    },
+    {
+      "feature": "has_upi",
+      "mean_abs_shap": 0.0
+    }
+  ]
+}
