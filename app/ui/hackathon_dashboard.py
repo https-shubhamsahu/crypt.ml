@@ -69,19 +69,89 @@ def render_page_style() -> None:
             }
             /* Dataset card grid */
             .ds-card {
-                border-radius: 12px;
-                border: 1px solid rgba(120,120,120,0.25);
-                padding: 1rem 1.1rem;
-                background: rgba(255,255,255,0.03);
-                transition: box-shadow 0.2s, border-color 0.2s;
+                border-radius: 14px;
+                border: 1px solid rgba(120,120,120,0.22);
+                padding: 1.05rem 1.1rem;
+                background: rgba(255,255,255,0.02);
+                transition: box-shadow 0.2s, border-color 0.2s, transform 0.2s;
                 height: 100%;
+                min-height: 280px;
+                position: relative;
+                overflow: hidden;
             }
             .ds-card:hover {
                 border-color: #3b82f6;
-                box-shadow: 0 4px 20px rgba(59,130,246,0.15);
+                box-shadow: 0 8px 22px rgba(59,130,246,0.14);
+                transform: translateY(-1px);
             }
-            .ds-card h4 { margin: 0 0 0.4rem 0; font-size: 1.05rem; }
-            .ds-card .ds-meta { color: #94a3b8; font-size: 0.82rem; margin-bottom: 0.5rem; }
+            .ds-card h4 { margin: 0 0 0.35rem 0; font-size: 1.03rem; line-height: 1.3; }
+            .ds-card .ds-meta { color: #94a3b8; font-size: 0.8rem; margin-bottom: 0.55rem; }
+            .ds-card-topbar {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 3px;
+                background: rgba(120,120,120,0.2);
+            }
+            .ds-card-topbar.inprogress {
+                background: linear-gradient(90deg, rgba(59,130,246,0.45), rgba(59,130,246,0.95));
+            }
+            .ds-card-topbar.completed {
+                background: linear-gradient(90deg, rgba(16,185,129,0.35), rgba(16,185,129,0.7));
+            }
+            .ds-card-topbar.pending {
+                background: linear-gradient(90deg, rgba(245,158,11,0.35), rgba(245,158,11,0.75));
+            }
+            .ds-header-row {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                margin-bottom: 0.7rem;
+            }
+            .ds-status-pill {
+                display: inline-flex;
+                align-items: center;
+                gap: 0.35rem;
+                padding: 0.23rem 0.65rem;
+                border-radius: 999px;
+                font-size: 0.7rem;
+                font-weight: 700;
+                letter-spacing: 0.03em;
+                text-transform: uppercase;
+                border: 1px solid transparent;
+            }
+            .ds-status-pill.completed {
+                background: rgba(16,185,129,0.15);
+                color: #10b981;
+                border-color: rgba(16,185,129,0.3);
+            }
+            .ds-status-pill.inprogress {
+                background: rgba(59,130,246,0.14);
+                color: #60a5fa;
+                border-color: rgba(59,130,246,0.35);
+            }
+            .ds-status-pill.pending {
+                background: rgba(245,158,11,0.14);
+                color: #f59e0b;
+                border-color: rgba(245,158,11,0.35);
+            }
+            .ds-status-dot {
+                width: 7px;
+                height: 7px;
+                border-radius: 50%;
+                background: currentColor;
+            }
+            .ds-risk-row, .ds-tx-row {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                border-top: 1px solid rgba(120,120,120,0.14);
+                padding: 0.52rem 0;
+                font-size: 0.82rem;
+            }
+            .ds-label { color: #94a3b8; font-weight: 600; }
+            .ds-value { color: #e2e8f0; font-weight: 700; }
             .ds-badge {
                 display: inline-block;
                 padding: 2px 9px;
@@ -98,19 +168,37 @@ def render_page_style() -> None:
             .ds-badge-inprogress  { background: #fef3c7; color: #92400e; }
             .ds-badge-completed   { background: #d1fae5; color: #065f46; }
             .ds-add-card {
-                border: 2px dashed rgba(120,120,120,0.35);
-                border-radius: 12px;
-                padding: 2.5rem 1rem;
+                border: 2px dashed rgba(120,120,120,0.32);
+                border-radius: 14px;
+                padding: 2.1rem 1rem;
                 text-align: center;
                 color: #94a3b8;
-                transition: border-color 0.2s;
+                transition: border-color 0.2s, background 0.2s;
                 height: 100%;
+                min-height: 280px;
                 display: flex;
                 flex-direction: column;
                 align-items: center;
                 justify-content: center;
+                background: rgba(255,255,255,0.01);
             }
-            .ds-add-card:hover { border-color: #3b82f6; color: #3b82f6; }
+            .ds-add-icon {
+                width: 56px;
+                height: 56px;
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                background: rgba(59,130,246,0.1);
+                color: #60a5fa;
+                font-size: 1.75rem;
+                margin-bottom: 0.6rem;
+            }
+            .ds-add-card:hover {
+                border-color: #3b82f6;
+                color: #3b82f6;
+                background: rgba(59,130,246,0.05);
+            }
             .ds-stat { font-size: 0.85rem; color: #cbd5e1; }
 
             /* Step wizard bar */
@@ -1919,17 +2007,11 @@ def section_datasets_overview() -> None:
         st.session_state["ds_flow_step"] = "overview"
 
     # ── Overview (cards grid) ─────────────────────
-    hdr_left, hdr_right = st.columns([3, 1])
-    with hdr_left:
-        st.subheader("Datasets Overview")
-        st.caption(
-            "Manage and explore transaction datasets uploaded for AML analysis. "
-            "Upload new files, inspect risk summaries, and click a card to begin analysis."
-        )
-    with hdr_right:
-        st.markdown("")
-        if st.button("➕ Add New Dataset", type="primary", use_container_width=True, key="btn_add_ds"):
-            st.session_state["ds_upload_open"] = True
+    st.subheader("Datasets Overview")
+    st.caption(
+        "Manage transaction datasets and risk analysis reports. "
+        "Upload new files, inspect risk summaries, and open analysis in one click."
+    )
 
     # Auto-discover
     if "datasets_scanned" not in st.session_state:
@@ -2030,25 +2112,49 @@ def section_datasets_overview() -> None:
         m4.metric("Analysed", f"{completed}/{len(datasets)}")
 
     if not datasets:
-        st.markdown("")
-        st.markdown(
-            '<div class="ds-add-card">'
-            '<p style="font-size:3rem;margin:0;">📂</p>'
-            '<p style="margin:0.5rem 0 0 0;font-size:1.05rem;">No datasets registered yet.</p>'
-            '<p style="color:#64748b;">Click <b>Add New Dataset</b> above to upload a CSV or Excel file.</p>'
-            '</div>',
-            unsafe_allow_html=True,
-        )
+        only_col = st.columns(1)[0]
+        with only_col:
+            st.markdown(
+                '<div class="ds-add-card">'
+                '<div class="ds-add-icon">➕</div>'
+                '<h4 style="margin:0;">Add New Dataset</h4>'
+                '<p style="color:#64748b; margin:0.3rem 0 0.8rem 0;">Upload CSV or Excel file</p>'
+                '<p style="color:#94a3b8; margin:0; font-size:0.8rem;">No datasets registered yet.</p>'
+                '</div>',
+                unsafe_allow_html=True,
+            )
+            if st.button("Add New Dataset", type="primary", use_container_width=True, key="btn_add_ds_empty"):
+                st.session_state["ds_upload_open"] = True
+                st.rerun()
         return
 
-    # ── Card grid (3 per row) ─────────────────────
+    # ── Card grid (4 per row) with add-card first ─
     st.markdown("")
-    COLS_PER_ROW = 3
-    for row_start in range(0, len(datasets), COLS_PER_ROW):
+    grid_items = [None] + datasets
+    COLS_PER_ROW = 4
+    for row_start in range(0, len(grid_items), COLS_PER_ROW):
         cols = st.columns(COLS_PER_ROW, gap="medium")
-        for col_idx, ds in enumerate(datasets[row_start : row_start + COLS_PER_ROW]):
+        for col_idx, item in enumerate(grid_items[row_start : row_start + COLS_PER_ROW]):
             with cols[col_idx]:
-                _render_dataset_card(ds)
+                if item is None:
+                    st.markdown(
+                        '<div class="ds-add-card">'
+                        '<div class="ds-add-icon">➕</div>'
+                        '<h4 style="margin:0;">Add New Dataset</h4>'
+                        '<p style="color:#64748b; margin:0.3rem 0 0.8rem 0;">Upload CSV or Excel file</p>'
+                        '</div>',
+                        unsafe_allow_html=True,
+                    )
+                    if st.button(
+                        "Add New Dataset",
+                        type="primary",
+                        use_container_width=True,
+                        key=f"btn_add_ds_grid_{row_start}_{col_idx}",
+                    ):
+                        st.session_state["ds_upload_open"] = True
+                        st.rerun()
+                else:
+                    _render_dataset_card(item)
 
 
 # ── Helper: Step bar ─────────────────────────────────────────────────────────
@@ -2108,17 +2214,31 @@ def _render_dataset_card(ds) -> None:
     except Exception:
         dt = str(ds.upload_date)[:10]
 
-    badges = _risk_badge_html(ds.risk_level) + " " + _status_badge_html(ds.status)
+    safe_name = str(ds.name).replace("<", "&lt;").replace(">", "&gt;")
+
+    status_key = {
+        "Completed": "completed",
+        "In Progress": "inprogress",
+        "Pending": "pending",
+    }.get(ds.status, "pending")
+    status_label = ds.status if ds.status in {"Completed", "In Progress", "Pending"} else "Pending"
+
+    risk_pill = _risk_badge_html(ds.risk_level)
+    topbar_cls = "completed" if status_key == "completed" else ("inprogress" if status_key == "inprogress" else "pending")
 
     st.markdown(
         f'<div class="ds-card">'
-        f'<h4 style="margin:0 0 0.25rem 0;">{ds.name}</h4>'
-        f'<div class="ds-meta">📅 {dt} &middot; {ds.human_size}</div>'
-        f'<div style="margin:0.5rem 0;">{badges}</div>'
-        f'<div class="ds-stat">'
-        f'📊 <b>{ds.total_rows:,}</b> transactions &middot; '
-        f'{ds.total_columns} cols &middot; '
-        f'Fraud {ds.fraud_pct}'
+        f'<div class="ds-card-topbar {topbar_cls}"></div>'
+        f'<div class="ds-header-row">'
+        f'<span class="ds-status-pill {status_key}"><span class="ds-status-dot"></span>{status_label}</span>'
+        f'</div>'
+        f'<h4>{safe_name}</h4>'
+        f'<div class="ds-meta">Uploaded: {dt} &middot; {ds.human_size}</div>'
+        f'<div class="ds-stat" style="margin:0.45rem 0 0.2rem 0;">{ds.total_columns} columns &middot; Fraud {ds.fraud_pct}</div>'
+        f'<div class="ds-tx-row"><span class="ds-label">Transactions</span><span class="ds-value">{ds.total_rows:,}</span></div>'
+        f'<div class="ds-risk-row"><span class="ds-label">Risk Summary</span><span>{risk_pill}</span></div>'
+        f'<div class="ds-stat" style="margin-top:0.45rem;">'
+        f'Click below to continue workflow.'
         f'</div>'
         f'</div>',
         unsafe_allow_html=True,

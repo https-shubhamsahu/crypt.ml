@@ -49,6 +49,39 @@ class ModelInfoResponse(BaseModel):
     shap_top_features: Optional[List[Dict]] = None
 
 
+class MLTrainRequest(BaseModel):
+    data_path: str = Field(
+        default="data/training_transactions.csv",
+        description="Path to training CSV on server",
+    )
+    target_recall: float = Field(
+        default=0.7,
+        ge=0.01,
+        le=0.99,
+        description="Recall target used for threshold selection",
+    )
+
+
+class MLTrainInlineRequest(BaseModel):
+    csv_content: str = Field(..., min_length=10, description="Raw CSV content to train from")
+    source_name: str = Field(default="uploaded_training.csv", description="Original source filename")
+    target_recall: float = Field(
+        default=0.7,
+        ge=0.01,
+        le=0.99,
+        description="Recall target used for threshold selection",
+    )
+
+
+class MLTrainResponse(BaseModel):
+    status: str
+    message: str
+    model_available: bool
+    model_path: str
+    metadata: Optional[Dict] = None
+    shap_top_features: Optional[List[Dict]] = None
+
+
 # ── LLM Chat ────────────────────────────────────────────────────────────────
 
 
@@ -63,6 +96,14 @@ class LLMChatRequest(BaseModel):
     include_ml_artifacts: bool = Field(
         default=True,
         description="Include current ML model metadata/SHAP in LLM context",
+    )
+    dataset_id: Optional[str] = Field(
+        default=None,
+        description="Optional dataset scope for isolated rules and chat history",
+    )
+    store_in_history: bool = Field(
+        default=True,
+        description="When false, does not write this chat turn to persisted history",
     )
 
 
@@ -103,6 +144,7 @@ class RuleOut(BaseModel):
 
 class SessionRulesResponse(BaseModel):
     session_id: str
+    dataset_id: Optional[str] = None
     rules: List[RuleOut]
     count: int
 
@@ -111,6 +153,10 @@ class InjectRulesRequest(BaseModel):
     """Natural-language text that may contain one or more session rules."""
 
     text: str = Field(..., min_length=1, max_length=2000)
+    dataset_id: Optional[str] = Field(
+        default=None,
+        description="Optional dataset scope for isolated session rule storage",
+    )
 
 
 class InjectRulesResponse(BaseModel):
@@ -123,3 +169,16 @@ class LLMStatusResponse(BaseModel):
     model_name: str
     endpoint: str
     ollama_reachable: bool
+
+
+class ChatHistoryMessage(BaseModel):
+    role: str
+    text: str
+    created_at: str
+
+
+class ChatHistoryResponse(BaseModel):
+    session_id: str
+    dataset_id: Optional[str] = None
+    messages: List[ChatHistoryMessage]
+    count: int

@@ -6,6 +6,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from app.api.v1.routes.scam_exposure import router as scam_router
 from app.api.v1.routes.data_generator import router as datagen_router
 from app.api.v1.routes.sharing import router as sharing_router
+from app.api.v1.routes.datasets import router as datasets_router
 from app.core.sharing_config import SHARING_CONFIG
 
 app = FastAPI(title="AEGIS-AML", version="0.1.0")
@@ -21,6 +22,7 @@ app.add_middleware(
 app.include_router(scam_router)
 app.include_router(datagen_router)
 app.include_router(sharing_router)
+app.include_router(datasets_router)
 
 
 @app.get("/")
@@ -44,9 +46,12 @@ def api_index() -> dict[str, str]:
 		"generate_data": "/api/v1/generate-data",
 		"generate_data_save": "/api/v1/generate-data/save",
 		"generate_data_schemas": "/api/v1/generate-data/schemas",
+		"datasets": "/api/v1/datasets",
+		"dataset_analytics": "/api/v1/datasets/{dataset_id}/analytics",
 		"ml_predict": "/api/v1/ml/predict",
 		"ml_info": "/api/v1/ml/info",
 		"llm_chat": "/api/v1/llm/chat",
+		"llm_chat_history": "/api/v1/llm/chat-history",
 		"llm_status": "/api/v1/llm/status",
 		"nlp_analyze": "/api/v1/nlp/analyze",
 		"session_rules": "/api/v1/session-rules",

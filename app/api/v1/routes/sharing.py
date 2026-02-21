@@ -10,13 +10,17 @@ GET  /api/v1/llm/status          — LLM connectivity check
 GET  /api/v1/session-rules       — list active session rules
 POST /api/v1/session-rules       — inject rules via natural language
 DELETE /api/v1/session-rules     — clear all session rules
+GET  /api/v1/llm/chat-history    — list assistant chat history
+DELETE /api/v1/llm/chat-history  — clear assistant chat history
 """
 
 from __future__ import annotations
 
 import json
 import os
+import re
 from pathlib import Path
+from threading import Lock
 from typing import Dict, List, Optional
 from urllib import error, request
 
@@ -25,6 +29,8 @@ from fastapi import APIRouter, Depends, HTTPException
 
 from app.api.v1.security import require_api_key
 from app.schemas.sharing import (
+    ChatHistoryMessage,
+    ChatHistoryResponse,
     InjectRulesRequest,
     InjectRulesResponse,
     LLMChatRequest,
@@ -32,12 +38,16 @@ from app.schemas.sharing import (
     LLMStatusResponse,
     MLInferenceRequest,
     MLInferenceResponse,
+    MLTrainInlineRequest,
+    MLTrainRequest,
+    MLTrainResponse,
     ModelInfoResponse,
     NLPAnalyzeRequest,
     NLPAnalyzeResponse,
     RuleOut,
     SessionRulesResponse,
 )
+from app.services.chat_history import ChatHistoryStore
 from app.services.nlp_service import analyze_note_risk, set_session_rules
 from app.services.session_rules import (
     SessionRuleStore,
@@ -54,8 +64,12 @@ router = APIRouter(prefix="/api/v1", tags=["sharing"])
 _MODEL_PATH = Path("artifacts/ml_model.joblib")
 _METADATA_PATH = Path("artifacts/ml_model_metadata.json")
 _SHAP_PATH = Path("artifacts/ml_model_shap_summary.json")
+_DEFAULT_TRAINING_PATH = Path("data/training_transactions.csv")
+_MAX_INLINE_CSV_CHARS = 6_000_000
 
-_rule_store = SessionRuleStore(session_id="api")
+_rule_store_cache: dict[str, SessionRuleStore] = {}
+_chat_store_cache: dict[str, ChatHistoryStore] = {}
+_cache_lock = Lock()
 
 
 def _is_llm_enabled() -> bool:
@@ -77,6 +91,54 @@ def _rule_to_out(r) -> RuleOut:
         parameters=d.get("parameters", {}),
         created_at=d.get("created_at", ""),
     )
+
+
+def _session_id_for_dataset(dataset_id: Optional[str]) -> str:
+    if dataset_id is None or not str(dataset_id).strip():
+        return "api"
+    normalized = re.sub(r"[^a-zA-Z0-9_-]+", "_", str(dataset_id).strip())
+    normalized = normalized.strip("_") or "dataset"
+    return f"api_{normalized}"
+
+
+def _get_rule_store(dataset_id: Optional[str]) -> SessionRuleStore:
+    session_id = _session_id_for_dataset(dataset_id)
+    with _cache_lock:
+        store = _rule_store_cache.get(session_id)
+        if store is None:
+            store = SessionRuleStore(session_id=session_id)
+            _rule_store_cache[session_id] = store
+        return store
+
+
+def _get_chat_store(dataset_id: Optional[str]) -> ChatHistoryStore:
+    session_id = _session_id_for_dataset(dataset_id)
+    with _cache_lock:
+        store = _chat_store_cache.get(session_id)
+        if store is None:
+            store = ChatHistoryStore(session_id=session_id)
+            _chat_store_cache[session_id] = store
+        return store
+
+
+def _load_model_info_payload() -> tuple[Optional[Dict], Optional[List[Dict]]]:
+    metadata: Optional[Dict] = None
+    shap_top: Optional[List[Dict]] = None
+
+    if _METADATA_PATH.exists():
+        try:
+            metadata = json.loads(_METADATA_PATH.read_text(encoding="utf-8"))
+        except (json.JSONDecodeError, OSError):
+            metadata = None
+
+    if _SHAP_PATH.exists():
+        try:
+            shap_data = json.loads(_SHAP_PATH.read_text(encoding="utf-8"))
+            shap_top = shap_data.get("top_features", [])[:15]
+        except (json.JSONDecodeError, OSError):
+            shap_top = None
+
+    return metadata, shap_top
 
 
 # ── ML Inference ─────────────────────────────────────────────────────────────
@@ -199,23 +261,84 @@ def ml_info(
     _: None = Depends(require_api_key),
 ) -> ModelInfoResponse:
     """Return model artifact metadata and top SHAP features."""
-    metadata: Optional[Dict] = None
-    shap_top: Optional[List[Dict]] = None
-
-    if _METADATA_PATH.exists():
-        try:
-            metadata = json.loads(_METADATA_PATH.read_text(encoding="utf-8"))
-        except (json.JSONDecodeError, OSError):
-            pass
-
-    if _SHAP_PATH.exists():
-        try:
-            shap_data = json.loads(_SHAP_PATH.read_text(encoding="utf-8"))
-            shap_top = shap_data.get("top_features", [])[:15]
-        except (json.JSONDecodeError, OSError):
-            pass
+    metadata, shap_top = _load_model_info_payload()
 
     return ModelInfoResponse(
+        model_available=_MODEL_PATH.exists(),
+        model_path=str(_MODEL_PATH),
+        metadata=metadata,
+        shap_top_features=shap_top,
+    )
+
+
+@router.post("/ml/train", response_model=MLTrainResponse)
+def ml_train(
+    payload: MLTrainRequest,
+    _: None = Depends(require_api_key),
+) -> MLTrainResponse:
+    """Train or retrain the local XGBoost model from a server-side CSV path."""
+    from app.services.ml_service import _load_model
+    from scripts.train_ml import train_model
+
+    data_path = Path(payload.data_path).expanduser()
+    if not data_path.exists():
+        raise HTTPException(status_code=404, detail=f"Training CSV not found at {data_path}")
+
+    try:
+        train_model(data_path=data_path, target_recall=float(payload.target_recall))
+    except ValueError as exc:
+        raise HTTPException(status_code=400, detail=str(exc)) from exc
+    except Exception as exc:
+        raise HTTPException(status_code=500, detail=f"Training failed: {exc}") from exc
+
+    _load_model.cache_clear()
+    metadata, shap_top = _load_model_info_payload()
+
+    return MLTrainResponse(
+        status="trained",
+        message=f"Model retrained from {data_path}",
+        model_available=_MODEL_PATH.exists(),
+        model_path=str(_MODEL_PATH),
+        metadata=metadata,
+        shap_top_features=shap_top,
+    )
+
+
+@router.post("/ml/train-inline", response_model=MLTrainResponse)
+def ml_train_inline(
+    payload: MLTrainInlineRequest,
+    _: None = Depends(require_api_key),
+) -> MLTrainResponse:
+    """Train or retrain the local model from inline CSV content sent by UI."""
+    from app.services.ml_service import _load_model
+    from scripts.train_ml import train_model
+
+    csv_content = str(payload.csv_content or "")
+    if len(csv_content) > _MAX_INLINE_CSV_CHARS:
+        raise HTTPException(
+            status_code=413,
+            detail=(
+                "Uploaded CSV content is too large for inline training payload. "
+                "Use /api/v1/ml/train with a server-side data path instead."
+            ),
+        )
+
+    _DEFAULT_TRAINING_PATH.parent.mkdir(parents=True, exist_ok=True)
+    _DEFAULT_TRAINING_PATH.write_text(csv_content, encoding="utf-8")
+
+    try:
+        train_model(data_path=_DEFAULT_TRAINING_PATH, target_recall=float(payload.target_recall))
+    except ValueError as exc:
+        raise HTTPException(status_code=400, detail=str(exc)) from exc
+    except Exception as exc:
+        raise HTTPException(status_code=500, detail=f"Training failed: {exc}") from exc
+
+    _load_model.cache_clear()
+    metadata, shap_top = _load_model_info_payload()
+
+    return MLTrainResponse(
+        status="trained",
+        message=f"Model retrained from inline CSV ({payload.source_name})",
         model_available=_MODEL_PATH.exists(),
         model_path=str(_MODEL_PATH),
         metadata=metadata,
@@ -263,15 +386,17 @@ def llm_chat(
     Supports natural-language rule injection (same as the dashboard AI Chat).
     """
     user_msg = payload.message.strip()
+    dataset_id = payload.dataset_id
+    rule_store = _get_rule_store(dataset_id)
 
     # Check for rule injection in the message
     if detect_rules(user_msg):
         new_rules = parse_rules(user_msg)
         if new_rules:
-            all_rules = _rule_store.add_rules(new_rules)
+            all_rules = rule_store.add_rules(new_rules)
             set_session_rules(all_rules)
 
-    active_rules = _rule_store.get_rules()
+    active_rules = rule_store.get_rules()
     set_session_rules(active_rules)
 
     system_ctx = payload.system_context or (
@@ -290,6 +415,11 @@ def llm_chat(
     )
 
     sections = format_llm_response(raw_response)
+
+    if payload.store_in_history:
+        chat_store = _get_chat_store(dataset_id)
+        chat_store.add(role="user", text=user_msg)
+        chat_store.add(role="assistant", text=sections.get("result") or raw_response)
 
     llm_enabled = _is_llm_enabled()
     model_name = os.getenv("AEGIS_LLM_MODEL", "phi3.5") if llm_enabled else "fallback"
@@ -358,12 +488,15 @@ def nlp_analyze(
 
 @router.get("/session-rules", response_model=SessionRulesResponse)
 def list_session_rules(
+    dataset_id: Optional[str] = None,
     _: None = Depends(require_api_key),
 ) -> SessionRulesResponse:
     """List all active API session rules."""
-    rules = _rule_store.get_rules()
+    session_id = _session_id_for_dataset(dataset_id)
+    rules = _get_rule_store(dataset_id).get_rules()
     return SessionRulesResponse(
-        session_id="api",
+        session_id=session_id,
+        dataset_id=dataset_id,
         rules=[_rule_to_out(r) for r in rules],
         count=len(rules),
     )
@@ -378,11 +511,12 @@ def inject_session_rules(
 
     Example body: ``{"text": "In this session, prioritize recall >= 0.80"}``
     """
+    rule_store = _get_rule_store(payload.dataset_id)
     new_rules = parse_rules(payload.text)
     if not new_rules:
-        return InjectRulesResponse(injected=[], total_active=len(_rule_store.get_rules()))
+        return InjectRulesResponse(injected=[], total_active=len(rule_store.get_rules()))
 
-    all_rules = _rule_store.add_rules(new_rules)
+    all_rules = rule_store.add_rules(new_rules)
     set_session_rules(all_rules)
 
     return InjectRulesResponse(
@@ -393,9 +527,49 @@ def inject_session_rules(
 
 @router.delete("/session-rules")
 def clear_session_rules(
+    dataset_id: Optional[str] = None,
     _: None = Depends(require_api_key),
 ) -> dict:
     """Clear all API session rules."""
-    _rule_store.clear()
+    _get_rule_store(dataset_id).clear()
     set_session_rules([])
-    return {"status": "cleared", "rules_remaining": 0}
+    return {
+        "status": "cleared",
+        "rules_remaining": 0,
+        "session_id": _session_id_for_dataset(dataset_id),
+    }
+
+
+@router.get("/llm/chat-history", response_model=ChatHistoryResponse)
+def list_chat_history(
+    dataset_id: Optional[str] = None,
+    limit: int = 80,
+    _: None = Depends(require_api_key),
+) -> ChatHistoryResponse:
+    """List chat history for a dataset-scoped (or global) assistant session."""
+    safe_limit = max(1, min(limit, 200))
+    session_id = _session_id_for_dataset(dataset_id)
+    messages = _get_chat_store(dataset_id).list(limit=safe_limit)
+    return ChatHistoryResponse(
+        session_id=session_id,
+        dataset_id=dataset_id,
+        messages=[
+            ChatHistoryMessage(role=item.role, text=item.text, created_at=item.created_at)
+            for item in messages
+        ],
+        count=len(messages),
+    )
+
+
+@router.delete("/llm/chat-history")
+def clear_chat_history(
+    dataset_id: Optional[str] = None,
+    _: None = Depends(require_api_key),
+) -> dict:
+    """Clear chat history for a dataset-scoped (or global) assistant session."""
+    removed = _get_chat_store(dataset_id).clear()
+    return {
+        "status": "cleared",
+        "removed": removed,
+        "session_id": _session_id_for_dataset(dataset_id),
+    }

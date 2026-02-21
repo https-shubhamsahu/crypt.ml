@@ -1,1 +1,19 @@
-[]
+[
+  {
+    "rule_type": "recall_target",
+    "description": "Prioritize recall >= 0.80",
+    "value": 0.8
+  },
+  {
+    "rule_type": "custom",
+    "description": "add rule Cross-Border High Value. Transaction Amount Greater Than 500000. Flag high-value transfers where sender and receiver are in different countries."
+  },
+  {
+    "rule_type": "custom",
+    "description": "add rule dataset one special threshold"
+  },
+  {
+    "rule_type": "custom",
+    "description": "add rule dataset two velocity focus"
+  }
+]
