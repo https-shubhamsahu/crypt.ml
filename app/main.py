@@ -7,9 +7,15 @@ from app.api.v1.routes.scam_exposure import router as scam_router
 from app.api.v1.routes.data_generator import router as datagen_router
 from app.api.v1.routes.sharing import router as sharing_router
 from app.api.v1.routes.datasets import router as datasets_router
+from app.api.v1.routes.agent_routes import router as agent_router
 from app.core.sharing_config import SHARING_CONFIG
+from app.core.database import init_db
 
 app = FastAPI(title="AEGIS-AML", version="0.1.0")
+
+@app.on_event("startup")
+def on_startup() -> None:
+    init_db()
 
 app.add_middleware(
 	CORSMiddleware,
@@ -23,6 +29,7 @@ app.include_router(scam_router)
 app.include_router(datagen_router)
 app.include_router(sharing_router)
 app.include_router(datasets_router)
+app.include_router(agent_router)
 
 
 @app.get("/")

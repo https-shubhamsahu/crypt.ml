@@ -1,0 +1,17 @@
+services:
+  - type: web
+    name: aegis-aml-backend
+    env: docker
+    plan: free
+    region: oregon
+    envVars:
+      - key: PORT
+        value: 8000
+      - key: CORS_ORIGINS
+        value: '["*"]'
+      - key: REQUIRE_API_KEY
+        value: "false"
+    disk:
+      name: aegis-data
+      mountPath: /app/data
+      sizeGB: 1

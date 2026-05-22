@@ -1,18 +1,17 @@
 {
   "summary": {
-    "total": 5,
+    "total": 100,
     "decision_counts": {
-      "ESCALATE": 2,
-      "ALLOW": 3
+      "ESCALATE": 100
     },
-    "mean_risk": 0.2012
+    "mean_risk": 0.4121
   },
   "sample_report": {
-    "report_id": "b4bfb6d7-988d-4049-8dec-599593506aa6",
-    "generated_at": "2026-02-19T13:41:39.837459+00:00",
+    "report_id": "225088d6-48c1-463c-83e6-d4e98fdad3d4",
+    "generated_at": "2026-05-22T06:45:55.788178+00:00",
     "transaction": {
-      "transaction_id": "TXN_d7f297cbb7",
-      "amount": 62000.0,
+      "transaction_id": "TXN_7494e3b107",
+      "amount": 0.0,
       "source": "ACC_000000",
       "destination": "ACC_001000",
       "channel": "unknown",
@@ -20,25 +19,24 @@
     },
     "final_decision": {
       "action": "ESCALATE",
-      "combined_risk_score": 0.3786,
+      "combined_risk_score": 0.4121,
       "reason": "High composite risk from RAW/SAR agents."
     },
     "raw_agent": {
-      "transaction_id": "TXN_d7f297cbb7",
-      "action": "ESCALATE",
-      "risk_score": 0.65,
+      "transaction_id": "TXN_7494e3b107",
+      "action": "REVIEW",
+      "risk_score": 0.4,
       "violations": [
-        "High transaction velocity in past hour.",
-        "Transaction amount crossed high-value threshold."
+        "R005 NewHandle_HeavyValue triggered (40.0/100): Transfer without UPI identifier"
       ]
     },
     "sar_agent": {
-      "transaction_id": "TXN_d7f297cbb7",
-      "ml_score": 0.0783,
+      "transaction_id": "TXN_7494e3b107",
+      "ml_score": 0.7114,
       "graph_score": 0.0,
-      "ensemble_score": 0.046979999999999994,
+      "ensemble_score": 0.42684,
       "top_signals": {
-        "ml_probability": 0.0783,
+        "ml_probability": 0.7114,
         "graph_proximity": 0.0,
         "graph_centrality": 0.0
       }

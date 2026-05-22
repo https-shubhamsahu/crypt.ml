@@ -28,3 +28,11 @@ Thumbs.db
 node_modules/
 frontend/node_modules/
 frontend/dist/
+
+# Database & Runtime stores
+data/aegis.db
+data/chat_history/
+data/session_rules/
+data/datasets/
+artifacts/agentic_report.json
+*.log
