@@ -160,14 +160,14 @@ export default function ModelStudio() {
   }, [modelInfo]);
 
   // Color Palette for SHAP chart bars
-  const colors = ['#3b82f6', '#8b5cf6', '#a855f7', '#d946ef', '#ec4899', '#f43f5e', '#ef4444', '#f97316'];
+  const colors = ['#1e3a8a', '#2563eb', '#3b82f6', '#0d9488', '#0f766e', '#475569', '#64748b', '#94a3b8'];
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         <div>
           <h2 style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
-            <Binary color="#9333ea" />
+            <Binary color="#3b82f6" />
             ML Model Developer Studio
           </h2>
           <p style={{ margin: 0, fontSize: '0.8rem', color: 'var(--text-secondary)' }}>
@@ -398,7 +398,7 @@ export default function ModelStudio() {
           
           <div style={{ border: '1px solid var(--border-soft)', background: 'var(--card-bg-alt)', borderRadius: '14px', padding: '1.5rem' }}>
             <h3 style={{ margin: '0 0 0.5rem', fontSize: '1.05rem', fontWeight: 800, display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-              <Sliders size={16} color="#9333ea" />
+              <Sliders size={16} color="#3b82f6" />
               Synthetic Scenario Generator
             </h3>
             <p style={{ margin: '0 0 1.25rem', fontSize: '0.8rem', color: 'var(--text-secondary)' }}>
@@ -459,7 +459,7 @@ export default function ModelStudio() {
                 type="submit" 
                 disabled={generatorBusy}
                 style={{
-                  background: generatorBusy ? 'rgba(147, 51, 234, 0.4)' : 'linear-gradient(90deg, #9333ea, #3b82f6)',
+                  background: generatorBusy ? 'rgba(59, 130, 246, 0.4)' : '#2563eb',
                   border: 'none',
                   borderRadius: '10px',
                   color: 'white',

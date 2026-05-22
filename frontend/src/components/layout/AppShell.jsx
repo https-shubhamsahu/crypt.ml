@@ -27,7 +27,7 @@ export default function AppShell({ children }) {
               <img src="/logo.png" alt="crypt.ml logo" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
             </div>
             <div>
-              <h1 style={{ fontSize: '1.25rem', fontWeight: 800, letterSpacing: '-0.02em', background: 'linear-gradient(90deg, #3b82f6, #9333ea)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
+              <h1 style={{ fontSize: '1.25rem', fontWeight: 800, letterSpacing: '-0.02em', color: 'var(--text-primary)' }}>
                 crypt.ml
               </h1>
               <p style={{ margin: 0, fontSize: '0.68rem', color: 'var(--text-secondary)', fontWeight: 600 }}>
@@ -110,26 +110,26 @@ export default function AppShell({ children }) {
                 gap: '0.75rem',
                 padding: '0.65rem 0.8rem',
                 borderRadius: '8px',
-                color: isActive ? '#9333ea' : 'var(--text-primary)',
-                background: isActive ? 'rgba(147, 51, 234, 0.08)' : 'transparent',
+                color: isActive ? '#3b82f6' : 'var(--text-primary)',
+                background: isActive ? 'rgba(59, 130, 246, 0.08)' : 'transparent',
                 fontWeight: isActive ? 700 : 500,
                 textDecoration: 'none',
                 fontSize: '0.85rem',
-                border: isActive ? '1px solid rgba(147, 51, 234, 0.15)' : '1px solid transparent'
+                border: isActive ? '1px solid rgba(59, 130, 246, 0.15)' : '1px solid transparent'
               })}
             >
               <Cpu size={16} />
               Agent Dashboard
               <span style={{ 
                 fontSize: '0.6rem', 
-                background: 'rgba(147, 51, 234, 0.15)', 
-                color: '#c084fc', 
+                background: 'rgba(59, 130, 246, 0.12)', 
+                color: '#3b82f6', 
                 padding: '0.05rem 0.35rem', 
                 borderRadius: '4px',
                 marginLeft: 'auto',
                 fontWeight: 800
               }}>
-                REALTIME
+                CLEARING
               </span>
             </NavLink>
 
@@ -221,7 +221,7 @@ export default function AppShell({ children }) {
           {/* Sidebar Footer Info */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem', borderTop: '1px solid var(--border-soft)', paddingTop: '1rem' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.72rem', color: 'var(--text-secondary)' }}>
-              <Activity size={12} color="#9333ea" />
+              <Activity size={12} color="#3b82f6" />
               <span>Agents Active: 5</span>
             </div>
             <div style={{ fontSize: '0.62rem', color: 'var(--text-secondary)', opacity: 0.8 }}>

@@ -93,7 +93,7 @@ export default function RuleEngine() {
                   rows="4" 
                   value={newRuleText} 
                   onChange={(e) => setNewRuleText(e.target.value)} 
-                  placeholder="e.g. Flag transactions exceeding INR 50000 with the note 'urgent' as critical bypass risk..."
+                  placeholder="e.g. Flag transactions exceeding USD 1,000,000 via SEPA/SWIFT clearing rails as critical systemic risk..."
                   required
                 ></textarea>
               </div>

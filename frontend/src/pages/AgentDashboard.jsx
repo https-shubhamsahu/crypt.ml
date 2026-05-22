@@ -15,11 +15,11 @@ import {
 
 export default function AgentDashboard() {
   // Simulator State
-  const [accountId, setAccountId] = useState('ACC_90812');
-  const [upiId, setUpiId] = useState('shubh@upi');
-  const [upiName, setUpiName] = useState('Shubham Sahu');
-  const [amount, setAmount] = useState('85000');
-  const [note, setNote] = useState('urgent bypass cashout freeze bypass untraceable');
+  const [accountId, setAccountId] = useState('CHASE-US-DE-99201948');
+  const [upiId, setUpiId] = useState('SEPA-DE-DB-8812903');
+  const [upiName, setUpiName] = useState('Coinbase Commerce Ltd.');
+  const [amount, setAmount] = useState('4500000');
+  const [note, setNote] = useState('Inter-company loan repayment sweep via offshore intermediary and settlement channels');
   
   // Pipeline Analysis State
   const [analyzing, setAnalyzing] = useState(false);
@@ -138,36 +138,36 @@ export default function AgentDashboard() {
             
             <form onSubmit={handleSimulate} style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
               <div className="form-group">
-                <label>Source Account ID</label>
+                <label>Originating Account Reference (IBAN/BIC)</label>
                 <input type="text" value={accountId} onChange={(e) => setAccountId(e.target.value)} required />
               </div>
 
               <div className="inline-row">
                 <div className="form-group">
-                  <label>Amount (INR)</label>
+                  <label>Amount (USD)</label>
                   <input type="number" value={amount} onChange={(e) => setAmount(e.target.value)} required />
                 </div>
                 <div className="form-group">
-                  <label>Receiver UPI ID</label>
+                  <label>Beneficiary Clearing Address (IBAN/BIC)</label>
                   <input type="text" value={upiId} onChange={(e) => setUpiId(e.target.value)} required />
                 </div>
               </div>
 
               <div className="form-group">
-                <label>Receiver UPI Name</label>
+                <label>Beneficiary Legal Name</label>
                 <input type="text" value={upiName} onChange={(e) => setUpiName(e.target.value)} required />
               </div>
 
               <div className="form-group">
-                <label>Transaction Narrative (NLP Target)</label>
-                <textarea rows="3" value={note} onChange={(e) => setNote(e.target.value)} placeholder="Enter transfer remarks..."></textarea>
+                <label>Transaction Narrative / Clearing Reference (NLP Target)</label>
+                <textarea rows="3" value={note} onChange={(e) => setNote(e.target.value)} placeholder="Enter clearing reference or payment purpose narrative..."></textarea>
               </div>
 
               <button 
                 type="submit" 
                 disabled={analyzing}
                 style={{ 
-                  background: analyzing ? 'rgba(59, 130, 246, 0.4)' : 'linear-gradient(90deg, #3b82f6, #9333ea)', 
+                  background: analyzing ? 'rgba(59, 130, 246, 0.4)' : '#3b82f6', 
                   border: 'none', 
                   borderRadius: '10px', 
                   color: 'white', 
@@ -200,9 +200,9 @@ export default function AgentDashboard() {
               {/* Orchestrator Agent Node */}
               <div style={{ 
                 border: '2px solid',
-                borderColor: activeStep === 'OrchestratorAgent' ? '#9333ea' : 'var(--border-soft)',
-                background: activeStep === 'OrchestratorAgent' ? 'rgba(147, 51, 234, 0.08)' : 'var(--card-bg)',
-                boxShadow: activeStep === 'OrchestratorAgent' ? '0 0 15px rgba(147, 51, 234, 0.4)' : 'none',
+                borderColor: activeStep === 'OrchestratorAgent' ? '#3b82f6' : 'var(--border-soft)',
+                background: activeStep === 'OrchestratorAgent' ? 'rgba(59, 130, 246, 0.08)' : 'var(--card-bg)',
+                boxShadow: activeStep === 'OrchestratorAgent' ? '0 0 15px rgba(59, 130, 246, 0.4)' : 'none',
                 borderRadius: '12px',
                 padding: '0.6rem 1.2rem',
                 display: 'flex',
@@ -210,9 +210,9 @@ export default function AgentDashboard() {
                 gap: '0.6rem',
                 transition: 'all 0.3s'
               }}>
-                <Cpu size={16} color="#c084fc" />
+                <Cpu size={16} color="#3b82f6" />
                 <strong style={{ fontSize: '0.85rem' }}>OrchestratorAgent</strong>
-                <span style={{ fontSize: '0.65rem', background: 'rgba(147, 51, 234, 0.15)', color: '#c084fc', padding: '0.1rem 0.4rem', borderRadius: '4px' }}>MASTER</span>
+                <span style={{ fontSize: '0.65rem', background: 'rgba(59, 130, 246, 0.12)', color: '#3b82f6', padding: '0.1rem 0.4rem', borderRadius: '4px' }}>MASTER</span>
               </div>
 
               <div style={{ display: 'flex', gap: '1rem', width: '100%', justifyContent: 'space-around' }}>
@@ -400,7 +400,7 @@ export default function AgentDashboard() {
             <div style={{ display: 'flex', flexDirection: 'column', gap: '0.45rem', maxHeight: '180px', overflowY: 'auto', background: 'var(--card-bg)', padding: '1rem', borderRadius: '10px', border: '1px solid var(--border-soft)', fontFamily: 'monospace', fontSize: '0.72rem' }}>
               {messages.map((msg, idx) => (
                 <div key={idx} style={{ borderBottom: '1px solid rgba(148, 163, 184, 0.1)', paddingBottom: '0.35rem', display: 'flex', gap: '0.5rem' }}>
-                  <span style={{ color: '#c084fc' }}>[{msg.sender} → {msg.receiver}]</span>
+                  <span style={{ color: '#3b82f6' }}>[{msg.sender} → {msg.receiver}]</span>
                   <span style={{ color: '#60a5fa' }}>{msg.msg_type}</span>
                   <span style={{ color: 'var(--text-secondary)', flex: 1, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{JSON.stringify(msg.payload)}</span>
                 </div>
@@ -436,7 +436,7 @@ export default function AgentDashboard() {
                 {audits.map((audit) => (
                   <tr key={audit.id} style={{ borderBottom: '1px solid rgba(148, 163, 184, 0.1)', transition: 'background 0.2s' }} className="hover:bg-slate-800">
                     <td style={{ padding: '0.75rem 0.8rem', fontWeight: 700 }}>{audit.account_id}</td>
-                    <td style={{ padding: '0.75rem 0.8rem', fontWeight: 700 }}>INR {audit.amount.toLocaleString()}</td>
+                    <td style={{ padding: '0.75rem 0.8rem', fontWeight: 700 }}>${audit.amount.toLocaleString()}</td>
                     <td style={{ padding: '0.75rem 0.8rem' }}>
                       <span style={{ 
                         fontSize: '0.7rem',
