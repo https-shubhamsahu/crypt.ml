@@ -5,7 +5,7 @@ agent: implementation
 tools: ['search', 'terminal']
 ---
 
-You are explaining the SHAP explainability output for the AEGIS-AML ML layer.
+You are explaining the SHAP explainability output for the crypt.ml ML layer.
 
 ## Context
 

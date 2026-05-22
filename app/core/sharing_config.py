@@ -28,7 +28,7 @@ class SharingConfig:
 
 
 SHARING_CONFIG = SharingConfig(
-    cors_origins=_parse_cors_origins(os.getenv("AEGIS_CORS_ORIGINS", "*")),
-    require_api_key=_as_bool(os.getenv("AEGIS_REQUIRE_API_KEY"), default=False),
-    api_key=os.getenv("AEGIS_API_KEY", ""),
+    cors_origins=_parse_cors_origins(os.getenv("crypt.ml_CORS_ORIGINS", "*")),
+    require_api_key=_as_bool(os.getenv("CRYPT_ML_REQUIRE_API_KEY"), default=False),
+    api_key=os.getenv("crypt.ml_API_KEY", ""),
 )

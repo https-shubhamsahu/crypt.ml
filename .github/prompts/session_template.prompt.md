@@ -5,7 +5,7 @@ agent: implementation
 tools: ['search']
 ---
 
-You are resuming an AEGIS-AML analysis session.
+You are resuming an crypt.ml analysis session.
 
 ## Session Context
 

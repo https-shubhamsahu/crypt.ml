@@ -16,7 +16,7 @@
   },
   {
     "role": "assistant",
-    "text": "The AEGIS-AML system received your query. Session rules are stored and will be applied to all subsequent LLM-powered analysis. Check that Ollama is running and reachable at localhost:11434; if you explicitly disabled LLM, set AEGIS_LLM_ENABLED=true to re-enable it.",
+    "text": "The crypt.ml system received your query. Session rules are stored and will be applied to all subsequent LLM-powered analysis. Check that Ollama is running and reachable at localhost:11434; if you explicitly disabled LLM, set CRYPT_ML_LLM_ENABLED=true to re-enable it.",
     "created_at": "2026-02-21T01:17:46.949593+00:00"
   },
   {
@@ -26,7 +26,7 @@
   },
   {
     "role": "assistant",
-    "text": "The AEGIS-AML system received your query. Session rules are stored and will be applied to all subsequent LLM-powered analysis. Check that Ollama is running and reachable at localhost:11434; if you explicitly disabled LLM, set AEGIS_LLM_ENABLED=true to re-enable it.",
+    "text": "The crypt.ml system received your query. Session rules are stored and will be applied to all subsequent LLM-powered analysis. Check that Ollama is running and reachable at localhost:11434; if you explicitly disabled LLM, set CRYPT_ML_LLM_ENABLED=true to re-enable it.",
     "created_at": "2026-02-21T01:18:01.042561+00:00"
   },
   {
@@ -36,7 +36,7 @@
   },
   {
     "role": "assistant",
-    "text": "The AEGIS-AML system received your query. Session rules are stored and will be applied to all subsequent LLM-powered analysis. Check that Ollama is running and reachable at localhost:11434; if you explicitly disabled LLM, set AEGIS_LLM_ENABLED=true to re-enable it.",
+    "text": "The crypt.ml system received your query. Session rules are stored and will be applied to all subsequent LLM-powered analysis. Check that Ollama is running and reachable at localhost:11434; if you explicitly disabled LLM, set CRYPT_ML_LLM_ENABLED=true to re-enable it.",
     "created_at": "2026-05-22T07:59:56.530910+00:00"
   },
   {
@@ -46,7 +46,7 @@
   },
   {
     "role": "assistant",
-    "text": "The AEGIS-AML system received your query. Session rules are stored and will be applied to all subsequent LLM-powered analysis. Check that Ollama is running and reachable at localhost:11434; if you explicitly disabled LLM, set AEGIS_LLM_ENABLED=true to re-enable it.",
+    "text": "The crypt.ml system received your query. Session rules are stored and will be applied to all subsequent LLM-powered analysis. Check that Ollama is running and reachable at localhost:11434; if you explicitly disabled LLM, set CRYPT_ML_LLM_ENABLED=true to re-enable it.",
     "created_at": "2026-05-22T07:59:56.541120+00:00"
   },
   {
@@ -56,7 +56,7 @@
   },
   {
     "role": "assistant",
-    "text": "The AEGIS-AML system received your query. Session rules are stored and will be applied to all subsequent LLM-powered analysis. Check that Ollama is running and reachable at localhost:11434; if you explicitly disabled LLM, set AEGIS_LLM_ENABLED=true to re-enable it.",
+    "text": "The crypt.ml system received your query. Session rules are stored and will be applied to all subsequent LLM-powered analysis. Check that Ollama is running and reachable at localhost:11434; if you explicitly disabled LLM, set CRYPT_ML_LLM_ENABLED=true to re-enable it.",
     "created_at": "2026-05-22T07:59:56.557892+00:00"
   },
   {
@@ -66,7 +66,7 @@
   },
   {
     "role": "assistant",
-    "text": "The AEGIS-AML system received your query. Session rules are stored and will be applied to all subsequent LLM-powered analysis. Check that Ollama is running and reachable at localhost:11434; if you explicitly disabled LLM, set AEGIS_LLM_ENABLED=true to re-enable it.",
+    "text": "The crypt.ml system received your query. Session rules are stored and will be applied to all subsequent LLM-powered analysis. Check that Ollama is running and reachable at localhost:11434; if you explicitly disabled LLM, set CRYPT_ML_LLM_ENABLED=true to re-enable it.",
     "created_at": "2026-05-22T07:59:56.585161+00:00"
   },
   {
@@ -76,7 +76,7 @@
   },
   {
     "role": "assistant",
-    "text": "The AEGIS-AML system received your query. Session rules are stored and will be applied to all subsequent LLM-powered analysis. Check that Ollama is running and reachable at localhost:11434; if you explicitly disabled LLM, set AEGIS_LLM_ENABLED=true to re-enable it.",
+    "text": "The crypt.ml system received your query. Session rules are stored and will be applied to all subsequent LLM-powered analysis. Check that Ollama is running and reachable at localhost:11434; if you explicitly disabled LLM, set CRYPT_ML_LLM_ENABLED=true to re-enable it.",
     "created_at": "2026-05-22T08:00:00.989490+00:00"
   },
   {
@@ -86,7 +86,7 @@
   },
   {
     "role": "assistant",
-    "text": "The AEGIS-AML system received your query. Session rules are stored and will be applied to all subsequent LLM-powered analysis. Check that Ollama is running and reachable at localhost:11434; if you explicitly disabled LLM, set AEGIS_LLM_ENABLED=true to re-enable it.",
+    "text": "The crypt.ml system received your query. Session rules are stored and will be applied to all subsequent LLM-powered analysis. Check that Ollama is running and reachable at localhost:11434; if you explicitly disabled LLM, set CRYPT_ML_LLM_ENABLED=true to re-enable it.",
     "created_at": "2026-05-22T08:00:01.005492+00:00"
   },
   {
@@ -96,7 +96,7 @@
   },
   {
     "role": "assistant",
-    "text": "The AEGIS-AML system received your query. Session rules are stored and will be applied to all subsequent LLM-powered analysis. Check that Ollama is running and reachable at localhost:11434; if you explicitly disabled LLM, set AEGIS_LLM_ENABLED=true to re-enable it.",
+    "text": "The crypt.ml system received your query. Session rules are stored and will be applied to all subsequent LLM-powered analysis. Check that Ollama is running and reachable at localhost:11434; if you explicitly disabled LLM, set CRYPT_ML_LLM_ENABLED=true to re-enable it.",
     "created_at": "2026-05-22T08:02:19.033935+00:00"
   },
   {
@@ -106,7 +106,7 @@
   },
   {
     "role": "assistant",
-    "text": "The AEGIS-AML system received your query. Session rules are stored and will be applied to all subsequent LLM-powered analysis. Check that Ollama is running and reachable at localhost:11434; if you explicitly disabled LLM, set AEGIS_LLM_ENABLED=true to re-enable it.",
+    "text": "The crypt.ml system received your query. Session rules are stored and will be applied to all subsequent LLM-powered analysis. Check that Ollama is running and reachable at localhost:11434; if you explicitly disabled LLM, set CRYPT_ML_LLM_ENABLED=true to re-enable it.",
     "created_at": "2026-05-22T08:02:19.042873+00:00"
   },
   {
@@ -116,7 +116,7 @@
   },
   {
     "role": "assistant",
-    "text": "The AEGIS-AML system received your query. Session rules are stored and will be applied to all subsequent LLM-powered analysis. Check that Ollama is running and reachable at localhost:11434; if you explicitly disabled LLM, set AEGIS_LLM_ENABLED=true to re-enable it.",
+    "text": "The crypt.ml system received your query. Session rules are stored and will be applied to all subsequent LLM-powered analysis. Check that Ollama is running and reachable at localhost:11434; if you explicitly disabled LLM, set CRYPT_ML_LLM_ENABLED=true to re-enable it.",
     "created_at": "2026-05-22T08:02:19.057934+00:00"
   },
   {
@@ -126,7 +126,7 @@
   },
   {
     "role": "assistant",
-    "text": "The AEGIS-AML system received your query. Session rules are stored and will be applied to all subsequent LLM-powered analysis. Check that Ollama is running and reachable at localhost:11434; if you explicitly disabled LLM, set AEGIS_LLM_ENABLED=true to re-enable it.",
+    "text": "The crypt.ml system received your query. Session rules are stored and will be applied to all subsequent LLM-powered analysis. Check that Ollama is running and reachable at localhost:11434; if you explicitly disabled LLM, set CRYPT_ML_LLM_ENABLED=true to re-enable it.",
     "created_at": "2026-05-22T08:02:19.079954+00:00"
   },
   {
@@ -136,7 +136,7 @@
   },
   {
     "role": "assistant",
-    "text": "The AEGIS-AML system received your query. Session rules are stored and will be applied to all subsequent LLM-powered analysis. Check that Ollama is running and reachable at localhost:11434; if you explicitly disabled LLM, set AEGIS_LLM_ENABLED=true to re-enable it.",
+    "text": "The crypt.ml system received your query. Session rules are stored and will be applied to all subsequent LLM-powered analysis. Check that Ollama is running and reachable at localhost:11434; if you explicitly disabled LLM, set CRYPT_ML_LLM_ENABLED=true to re-enable it.",
     "created_at": "2026-05-22T08:02:23.454566+00:00"
   },
   {
@@ -146,7 +146,7 @@
   },
   {
     "role": "assistant",
-    "text": "The AEGIS-AML system received your query. Session rules are stored and will be applied to all subsequent LLM-powered analysis. Check that Ollama is running and reachable at localhost:11434; if you explicitly disabled LLM, set AEGIS_LLM_ENABLED=true to re-enable it.",
+    "text": "The crypt.ml system received your query. Session rules are stored and will be applied to all subsequent LLM-powered analysis. Check that Ollama is running and reachable at localhost:11434; if you explicitly disabled LLM, set CRYPT_ML_LLM_ENABLED=true to re-enable it.",
     "created_at": "2026-05-22T08:02:23.472141+00:00"
   },
   {
@@ -156,7 +156,7 @@
   },
   {
     "role": "assistant",
-    "text": "The AEGIS-AML system received your query. Session rules are stored and will be applied to all subsequent LLM-powered analysis. Check that Ollama is running and reachable at localhost:11434; if you explicitly disabled LLM, set AEGIS_LLM_ENABLED=true to re-enable it.",
+    "text": "The crypt.ml system received your query. Session rules are stored and will be applied to all subsequent LLM-powered analysis. Check that Ollama is running and reachable at localhost:11434; if you explicitly disabled LLM, set CRYPT_ML_LLM_ENABLED=true to re-enable it.",
     "created_at": "2026-05-22T08:05:42.959039+00:00"
   },
   {
@@ -166,7 +166,7 @@
   },
   {
     "role": "assistant",
-    "text": "The AEGIS-AML system received your query. Session rules are stored and will be applied to all subsequent LLM-powered analysis. Check that Ollama is running and reachable at localhost:11434; if you explicitly disabled LLM, set AEGIS_LLM_ENABLED=true to re-enable it.",
+    "text": "The crypt.ml system received your query. Session rules are stored and will be applied to all subsequent LLM-powered analysis. Check that Ollama is running and reachable at localhost:11434; if you explicitly disabled LLM, set CRYPT_ML_LLM_ENABLED=true to re-enable it.",
     "created_at": "2026-05-22T08:05:42.968237+00:00"
   },
   {
@@ -176,7 +176,7 @@
   },
   {
     "role": "assistant",
-    "text": "The AEGIS-AML system received your query. Session rules are stored and will be applied to all subsequent LLM-powered analysis. Check that Ollama is running and reachable at localhost:11434; if you explicitly disabled LLM, set AEGIS_LLM_ENABLED=true to re-enable it.",
+    "text": "The crypt.ml system received your query. Session rules are stored and will be applied to all subsequent LLM-powered analysis. Check that Ollama is running and reachable at localhost:11434; if you explicitly disabled LLM, set CRYPT_ML_LLM_ENABLED=true to re-enable it.",
     "created_at": "2026-05-22T08:05:42.984156+00:00"
   },
   {
@@ -186,7 +186,7 @@
   },
   {
     "role": "assistant",
-    "text": "The AEGIS-AML system received your query. Session rules are stored and will be applied to all subsequent LLM-powered analysis. Check that Ollama is running and reachable at localhost:11434; if you explicitly disabled LLM, set AEGIS_LLM_ENABLED=true to re-enable it.",
+    "text": "The crypt.ml system received your query. Session rules are stored and will be applied to all subsequent LLM-powered analysis. Check that Ollama is running and reachable at localhost:11434; if you explicitly disabled LLM, set CRYPT_ML_LLM_ENABLED=true to re-enable it.",
     "created_at": "2026-05-22T08:05:43.003262+00:00"
   },
   {
@@ -196,7 +196,7 @@
   },
   {
     "role": "assistant",
-    "text": "The AEGIS-AML system received your query. Session rules are stored and will be applied to all subsequent LLM-powered analysis. Check that Ollama is running and reachable at localhost:11434; if you explicitly disabled LLM, set AEGIS_LLM_ENABLED=true to re-enable it.",
+    "text": "The crypt.ml system received your query. Session rules are stored and will be applied to all subsequent LLM-powered analysis. Check that Ollama is running and reachable at localhost:11434; if you explicitly disabled LLM, set CRYPT_ML_LLM_ENABLED=true to re-enable it.",
     "created_at": "2026-05-22T08:05:47.375702+00:00"
   },
   {
@@ -206,7 +206,7 @@
   },
   {
     "role": "assistant",
-    "text": "The AEGIS-AML system received your query. Session rules are stored and will be applied to all subsequent LLM-powered analysis. Check that Ollama is running and reachable at localhost:11434; if you explicitly disabled LLM, set AEGIS_LLM_ENABLED=true to re-enable it.",
+    "text": "The crypt.ml system received your query. Session rules are stored and will be applied to all subsequent LLM-powered analysis. Check that Ollama is running and reachable at localhost:11434; if you explicitly disabled LLM, set CRYPT_ML_LLM_ENABLED=true to re-enable it.",
     "created_at": "2026-05-22T08:05:47.391448+00:00"
   },
   {
@@ -216,7 +216,7 @@
   },
   {
     "role": "assistant",
-    "text": "The AEGIS-AML system received your query. Session rules are stored and will be applied to all subsequent LLM-powered analysis. Check that Ollama is running and reachable at localhost:11434; if you explicitly disabled LLM, set AEGIS_LLM_ENABLED=true to re-enable it.",
+    "text": "The crypt.ml system received your query. Session rules are stored and will be applied to all subsequent LLM-powered analysis. Check that Ollama is running and reachable at localhost:11434; if you explicitly disabled LLM, set CRYPT_ML_LLM_ENABLED=true to re-enable it.",
     "created_at": "2026-05-22T08:08:46.531991+00:00"
   },
   {
@@ -226,7 +226,7 @@
   },
   {
     "role": "assistant",
-    "text": "The AEGIS-AML system received your query. Session rules are stored and will be applied to all subsequent LLM-powered analysis. Check that Ollama is running and reachable at localhost:11434; if you explicitly disabled LLM, set AEGIS_LLM_ENABLED=true to re-enable it.",
+    "text": "The crypt.ml system received your query. Session rules are stored and will be applied to all subsequent LLM-powered analysis. Check that Ollama is running and reachable at localhost:11434; if you explicitly disabled LLM, set CRYPT_ML_LLM_ENABLED=true to re-enable it.",
     "created_at": "2026-05-22T08:08:46.540298+00:00"
   },
   {
@@ -236,7 +236,7 @@
   },
   {
     "role": "assistant",
-    "text": "The AEGIS-AML system received your query. Session rules are stored and will be applied to all subsequent LLM-powered analysis. Check that Ollama is running and reachable at localhost:11434; if you explicitly disabled LLM, set AEGIS_LLM_ENABLED=true to re-enable it.",
+    "text": "The crypt.ml system received your query. Session rules are stored and will be applied to all subsequent LLM-powered analysis. Check that Ollama is running and reachable at localhost:11434; if you explicitly disabled LLM, set CRYPT_ML_LLM_ENABLED=true to re-enable it.",
     "created_at": "2026-05-22T08:08:46.556244+00:00"
   },
   {
@@ -246,7 +246,7 @@
   },
   {
     "role": "assistant",
-    "text": "The AEGIS-AML system received your query. Session rules are stored and will be applied to all subsequent LLM-powered analysis. Check that Ollama is running and reachable at localhost:11434; if you explicitly disabled LLM, set AEGIS_LLM_ENABLED=true to re-enable it.",
+    "text": "The crypt.ml system received your query. Session rules are stored and will be applied to all subsequent LLM-powered analysis. Check that Ollama is running and reachable at localhost:11434; if you explicitly disabled LLM, set CRYPT_ML_LLM_ENABLED=true to re-enable it.",
     "created_at": "2026-05-22T08:08:46.577821+00:00"
   },
   {
@@ -256,7 +256,7 @@
   },
   {
     "role": "assistant",
-    "text": "The AEGIS-AML system received your query. Session rules are stored and will be applied to all subsequent LLM-powered analysis. Check that Ollama is running and reachable at localhost:11434; if you explicitly disabled LLM, set AEGIS_LLM_ENABLED=true to re-enable it.",
+    "text": "The crypt.ml system received your query. Session rules are stored and will be applied to all subsequent LLM-powered analysis. Check that Ollama is running and reachable at localhost:11434; if you explicitly disabled LLM, set CRYPT_ML_LLM_ENABLED=true to re-enable it.",
     "created_at": "2026-05-22T08:08:50.915835+00:00"
   },
   {
@@ -266,7 +266,7 @@
   },
   {
     "role": "assistant",
-    "text": "The AEGIS-AML system received your query. Session rules are stored and will be applied to all subsequent LLM-powered analysis. Check that Ollama is running and reachable at localhost:11434; if you explicitly disabled LLM, set AEGIS_LLM_ENABLED=true to re-enable it.",
+    "text": "The crypt.ml system received your query. Session rules are stored and will be applied to all subsequent LLM-powered analysis. Check that Ollama is running and reachable at localhost:11434; if you explicitly disabled LLM, set CRYPT_ML_LLM_ENABLED=true to re-enable it.",
     "created_at": "2026-05-22T08:08:50.932126+00:00"
   },
   {
@@ -276,7 +276,7 @@
   },
   {
     "role": "assistant",
-    "text": "The AEGIS-AML system received your query. Session rules are stored and will be applied to all subsequent LLM-powered analysis. Check that Ollama is running and reachable at localhost:11434; if you explicitly disabled LLM, set AEGIS_LLM_ENABLED=true to re-enable it.",
+    "text": "The crypt.ml system received your query. Session rules are stored and will be applied to all subsequent LLM-powered analysis. Check that Ollama is running and reachable at localhost:11434; if you explicitly disabled LLM, set CRYPT_ML_LLM_ENABLED=true to re-enable it.",
     "created_at": "2026-05-22T08:12:47.131406+00:00"
   },
   {
@@ -286,7 +286,7 @@
   },
   {
     "role": "assistant",
-    "text": "The AEGIS-AML system received your query. Session rules are stored and will be applied to all subsequent LLM-powered analysis. Check that Ollama is running and reachable at localhost:11434; if you explicitly disabled LLM, set AEGIS_LLM_ENABLED=true to re-enable it.",
+    "text": "The crypt.ml system received your query. Session rules are stored and will be applied to all subsequent LLM-powered analysis. Check that Ollama is running and reachable at localhost:11434; if you explicitly disabled LLM, set CRYPT_ML_LLM_ENABLED=true to re-enable it.",
     "created_at": "2026-05-22T08:12:47.139160+00:00"
   },
   {
@@ -296,7 +296,7 @@
   },
   {
     "role": "assistant",
-    "text": "The AEGIS-AML system received your query. Session rules are stored and will be applied to all subsequent LLM-powered analysis. Check that Ollama is running and reachable at localhost:11434; if you explicitly disabled LLM, set AEGIS_LLM_ENABLED=true to re-enable it.",
+    "text": "The crypt.ml system received your query. Session rules are stored and will be applied to all subsequent LLM-powered analysis. Check that Ollama is running and reachable at localhost:11434; if you explicitly disabled LLM, set CRYPT_ML_LLM_ENABLED=true to re-enable it.",
     "created_at": "2026-05-22T08:12:47.153634+00:00"
   },
   {
@@ -306,7 +306,7 @@
   },
   {
     "role": "assistant",
-    "text": "The AEGIS-AML system received your query. Session rules are stored and will be applied to all subsequent LLM-powered analysis. Check that Ollama is running and reachable at localhost:11434; if you explicitly disabled LLM, set AEGIS_LLM_ENABLED=true to re-enable it.",
+    "text": "The crypt.ml system received your query. Session rules are stored and will be applied to all subsequent LLM-powered analysis. Check that Ollama is running and reachable at localhost:11434; if you explicitly disabled LLM, set CRYPT_ML_LLM_ENABLED=true to re-enable it.",
     "created_at": "2026-05-22T08:12:47.172955+00:00"
   },
   {
@@ -316,7 +316,7 @@
   },
   {
     "role": "assistant",
-    "text": "The AEGIS-AML system received your query. Session rules are stored and will be applied to all subsequent LLM-powered analysis. Check that Ollama is running and reachable at localhost:11434; if you explicitly disabled LLM, set AEGIS_LLM_ENABLED=true to re-enable it.",
+    "text": "The crypt.ml system received your query. Session rules are stored and will be applied to all subsequent LLM-powered analysis. Check that Ollama is running and reachable at localhost:11434; if you explicitly disabled LLM, set CRYPT_ML_LLM_ENABLED=true to re-enable it.",
     "created_at": "2026-05-22T08:12:51.533492+00:00"
   },
   {
@@ -326,7 +326,7 @@
   },
   {
     "role": "assistant",
-    "text": "The AEGIS-AML system received your query. Session rules are stored and will be applied to all subsequent LLM-powered analysis. Check that Ollama is running and reachable at localhost:11434; if you explicitly disabled LLM, set AEGIS_LLM_ENABLED=true to re-enable it.",
+    "text": "The crypt.ml system received your query. Session rules are stored and will be applied to all subsequent LLM-powered analysis. Check that Ollama is running and reachable at localhost:11434; if you explicitly disabled LLM, set CRYPT_ML_LLM_ENABLED=true to re-enable it.",
     "created_at": "2026-05-22T08:12:51.549680+00:00"
   },
   {
@@ -336,7 +336,7 @@
   },
   {
     "role": "assistant",
-    "text": "The AEGIS-AML system received your query. Session rules are stored and will be applied to all subsequent LLM-powered analysis. Check that Ollama is running and reachable at localhost:11434; if you explicitly disabled LLM, set AEGIS_LLM_ENABLED=true to re-enable it.",
+    "text": "The crypt.ml system received your query. Session rules are stored and will be applied to all subsequent LLM-powered analysis. Check that Ollama is running and reachable at localhost:11434; if you explicitly disabled LLM, set CRYPT_ML_LLM_ENABLED=true to re-enable it.",
     "created_at": "2026-05-22T08:22:47.026589+00:00"
   },
   {
@@ -346,7 +346,7 @@
   },
   {
     "role": "assistant",
-    "text": "The AEGIS-AML system received your query. Session rules are stored and will be applied to all subsequent LLM-powered analysis. Check that Ollama is running and reachable at localhost:11434; if you explicitly disabled LLM, set AEGIS_LLM_ENABLED=true to re-enable it.",
+    "text": "The crypt.ml system received your query. Session rules are stored and will be applied to all subsequent LLM-powered analysis. Check that Ollama is running and reachable at localhost:11434; if you explicitly disabled LLM, set CRYPT_ML_LLM_ENABLED=true to re-enable it.",
     "created_at": "2026-05-22T08:22:47.035121+00:00"
   },
   {
@@ -356,7 +356,7 @@
   },
   {
     "role": "assistant",
-    "text": "The AEGIS-AML system received your query. Session rules are stored and will be applied to all subsequent LLM-powered analysis. Check that Ollama is running and reachable at localhost:11434; if you explicitly disabled LLM, set AEGIS_LLM_ENABLED=true to re-enable it.",
+    "text": "The crypt.ml system received your query. Session rules are stored and will be applied to all subsequent LLM-powered analysis. Check that Ollama is running and reachable at localhost:11434; if you explicitly disabled LLM, set CRYPT_ML_LLM_ENABLED=true to re-enable it.",
     "created_at": "2026-05-22T08:22:47.050578+00:00"
   },
   {
@@ -366,7 +366,7 @@
   },
   {
     "role": "assistant",
-    "text": "The AEGIS-AML system received your query. Session rules are stored and will be applied to all subsequent LLM-powered analysis. Check that Ollama is running and reachable at localhost:11434; if you explicitly disabled LLM, set AEGIS_LLM_ENABLED=true to re-enable it.",
+    "text": "The crypt.ml system received your query. Session rules are stored and will be applied to all subsequent LLM-powered analysis. Check that Ollama is running and reachable at localhost:11434; if you explicitly disabled LLM, set CRYPT_ML_LLM_ENABLED=true to re-enable it.",
     "created_at": "2026-05-22T08:22:47.070050+00:00"
   },
   {
@@ -376,7 +376,7 @@
   },
   {
     "role": "assistant",
-    "text": "The AEGIS-AML system received your query. Session rules are stored and will be applied to all subsequent LLM-powered analysis. Check that Ollama is running and reachable at localhost:11434; if you explicitly disabled LLM, set AEGIS_LLM_ENABLED=true to re-enable it.",
+    "text": "The crypt.ml system received your query. Session rules are stored and will be applied to all subsequent LLM-powered analysis. Check that Ollama is running and reachable at localhost:11434; if you explicitly disabled LLM, set CRYPT_ML_LLM_ENABLED=true to re-enable it.",
     "created_at": "2026-05-22T08:22:51.417298+00:00"
   },
   {
@@ -386,7 +386,67 @@
   },
   {
     "role": "assistant",
-    "text": "The AEGIS-AML system received your query. Session rules are stored and will be applied to all subsequent LLM-powered analysis. Check that Ollama is running and reachable at localhost:11434; if you explicitly disabled LLM, set AEGIS_LLM_ENABLED=true to re-enable it.",
+    "text": "The crypt.ml system received your query. Session rules are stored and will be applied to all subsequent LLM-powered analysis. Check that Ollama is running and reachable at localhost:11434; if you explicitly disabled LLM, set CRYPT_ML_LLM_ENABLED=true to re-enable it.",
     "created_at": "2026-05-22T08:22:51.433547+00:00"
+  },
+  {
+    "role": "user",
+    "text": "What is the current model ROC-AUC?",
+    "created_at": "2026-05-22T08:42:47.941329+00:00"
+  },
+  {
+    "role": "assistant",
+    "text": "The crypt.ml system received your query. Session rules are stored and will be applied to all subsequent LLM-powered analysis. Check that Ollama is running and reachable at localhost:11434; if you explicitly disabled LLM, set CRYPT_ML_LLM_ENABLED=true to re-enable it.",
+    "created_at": "2026-05-22T08:42:47.942148+00:00"
+  },
+  {
+    "role": "user",
+    "text": "Explain the risk score formula",
+    "created_at": "2026-05-22T08:42:47.965807+00:00"
+  },
+  {
+    "role": "assistant",
+    "text": "The crypt.ml system received your query. Session rules are stored and will be applied to all subsequent LLM-powered analysis. Check that Ollama is running and reachable at localhost:11434; if you explicitly disabled LLM, set CRYPT_ML_LLM_ENABLED=true to re-enable it.",
+    "created_at": "2026-05-22T08:42:47.966724+00:00"
+  },
+  {
+    "role": "user",
+    "text": "In this session, prioritize recall >= 0.85",
+    "created_at": "2026-05-22T08:42:47.980608+00:00"
+  },
+  {
+    "role": "assistant",
+    "text": "The crypt.ml system received your query. Session rules are stored and will be applied to all subsequent LLM-powered analysis. Check that Ollama is running and reachable at localhost:11434; if you explicitly disabled LLM, set CRYPT_ML_LLM_ENABLED=true to re-enable it.",
+    "created_at": "2026-05-22T08:42:47.981506+00:00"
+  },
+  {
+    "role": "user",
+    "text": "Summarize the SHAP feature importance",
+    "created_at": "2026-05-22T08:42:48.000869+00:00"
+  },
+  {
+    "role": "assistant",
+    "text": "The crypt.ml system received your query. Session rules are stored and will be applied to all subsequent LLM-powered analysis. Check that Ollama is running and reachable at localhost:11434; if you explicitly disabled LLM, set CRYPT_ML_LLM_ENABLED=true to re-enable it.",
+    "created_at": "2026-05-22T08:42:48.001716+00:00"
+  },
+  {
+    "role": "user",
+    "text": "hello",
+    "created_at": "2026-05-22T08:42:52.424500+00:00"
+  },
+  {
+    "role": "assistant",
+    "text": "The crypt.ml system received your query. Session rules are stored and will be applied to all subsequent LLM-powered analysis. Check that Ollama is running and reachable at localhost:11434; if you explicitly disabled LLM, set CRYPT_ML_LLM_ENABLED=true to re-enable it.",
+    "created_at": "2026-05-22T08:42:52.425669+00:00"
+  },
+  {
+    "role": "user",
+    "text": "I got a risk score of 76.48. Is this high?",
+    "created_at": "2026-05-22T08:42:52.442445+00:00"
+  },
+  {
+    "role": "assistant",
+    "text": "The crypt.ml system received your query. Session rules are stored and will be applied to all subsequent LLM-powered analysis. Check that Ollama is running and reachable at localhost:11434; if you explicitly disabled LLM, set CRYPT_ML_LLM_ENABLED=true to re-enable it.",
+    "created_at": "2026-05-22T08:42:52.443382+00:00"
   }
 ]

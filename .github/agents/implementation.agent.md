@@ -4,7 +4,7 @@ description: Write clean production-ready Python code for AML components
 tools: ['edit', 'search', 'fetch', 'terminal']
 ---
 
-You are a backend engineer building AEGIS-AML.
+You are a backend engineer building crypt.ml.
 
 Rules:
 - Write modular code

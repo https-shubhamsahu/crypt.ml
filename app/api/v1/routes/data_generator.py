@@ -58,7 +58,7 @@ def generate_csv(
         days_span=payload.days_span,
     )
     csv_content = generate_to_csv_string(config)
-    filename = f"aegis_synthetic_{config.schema}_{config.num_rows}rows.csv"
+    filename = f"crypt_ml_synthetic_{config.schema}_{config.num_rows}rows.csv"
     return Response(
         content=csv_content,
         media_type="text/csv",

@@ -5,7 +5,7 @@ agent: implementation
 tools: ['search', 'terminal']
 ---
 
-You are analyzing the recall trend of the AEGIS-AML ML pipeline.
+You are analyzing the recall trend of the crypt.ml ML pipeline.
 
 ## Context
 

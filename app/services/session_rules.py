@@ -45,14 +45,14 @@ _RULE_TRIGGER_PATTERNS: list[re.Pattern[str]] = [
     re.compile(r"\balways\s+consider\b", re.IGNORECASE),
 ]
 
-LLM_TIMEOUT_SECONDS = int(os.getenv("AEGIS_LLM_TIMEOUT_SECONDS", "45"))
-LLM_NUM_PREDICT = int(os.getenv("AEGIS_LLM_NUM_PREDICT", "384"))
+LLM_TIMEOUT_SECONDS = int(os.getenv("crypt.ml_LLM_TIMEOUT_SECONDS", "45"))
+LLM_NUM_PREDICT = int(os.getenv("crypt.ml_LLM_NUM_PREDICT", "384"))
 _PERSISTENCE_DIR = Path(__file__).resolve().parents[2] / "data" / "session_rules"
 
 
 def _is_llm_enabled() -> bool:
     """Enable LLM unless explicitly disabled; keep tests deterministic."""
-    raw = os.getenv("AEGIS_LLM_ENABLED", "").strip().lower()
+    raw = os.getenv("CRYPT_ML_LLM_ENABLED", "").strip().lower()
     if raw in {"0", "false", "no", "off"}:
         return False
     if raw in {"1", "true", "yes", "on"}:
@@ -125,11 +125,11 @@ def _parse_rules_via_llm(user_text: str) -> List[Rule]:
     if not llm_enabled:
         return []
 
-    endpoint = os.getenv("AEGIS_LLM_ENDPOINT", "http://localhost:11434/api/generate")
-    model = os.getenv("AEGIS_LLM_MODEL", "phi3.5")
+    endpoint = os.getenv("CRYPT_ML_LLM_ENDPOINT", "http://localhost:11434/api/generate")
+    model = os.getenv("CRYPT_ML_LLM_MODEL", "phi3.5")
 
     prompt = (
-        "You are a rule-extraction engine for the AEGIS-AML system. "
+        "You are a rule-extraction engine for the crypt.ml system. "
         "Parse the user's natural-language session rule directive into a JSON array. "
         "Each element must have at minimum: rule_type (string), description (string). "
         "Optional fields: value (number), hops (integer), risk_boost (number). "
@@ -238,7 +238,7 @@ def _parse_rules_heuristic(user_text: str) -> List[Rule]:
 # ── 2b) Natural-Language → Structured Compliance Rule ────────────────────────
 
 _NL_RULE_PARSE_PROMPT = (
-    "You are a compliance rule parser for the AEGIS-AML system.\n"
+    "You are a compliance rule parser for the crypt.ml system.\n"
     "The user will describe a transaction monitoring rule in plain English.\n"
     "Parse it into a JSON object with EXACTLY these keys:\n"
     '  "name": short rule title (max 8 words),\n'
@@ -280,8 +280,8 @@ def _parse_nl_rule_via_llm(user_text: str) -> Dict[str, Any]:
     if not llm_enabled:
         return {"error": "LLM unavailable/disabled. Using heuristic fallback."}
 
-    endpoint = os.getenv("AEGIS_LLM_ENDPOINT", "http://localhost:11434/api/generate")
-    model = os.getenv("AEGIS_LLM_MODEL", "phi3.5")
+    endpoint = os.getenv("CRYPT_ML_LLM_ENDPOINT", "http://localhost:11434/api/generate")
+    model = os.getenv("CRYPT_ML_LLM_MODEL", "phi3.5")
 
     payload = {
         "model": model,
@@ -602,8 +602,8 @@ def chat_with_rules(
 
 def _call_ollama(prompt: str) -> Optional[str]:
     """Low-level Ollama API call."""
-    endpoint = os.getenv("AEGIS_LLM_ENDPOINT", "http://localhost:11434/api/generate")
-    model = os.getenv("AEGIS_LLM_MODEL", "phi3.5")
+    endpoint = os.getenv("CRYPT_ML_LLM_ENDPOINT", "http://localhost:11434/api/generate")
+    model = os.getenv("CRYPT_ML_LLM_MODEL", "phi3.5")
 
     payload = {
         "model": model,
@@ -642,10 +642,10 @@ def _generate_fallback_response(user_message: str, rules: List[Rule]) -> str:
         f"Active session rules considered:\n{rules_summary}\n"
         "LLM is currently unavailable (disabled, unreachable, or timed out) — providing rule-aware heuristic response.\n\n"
         "[RESULT]\n"
-        "The AEGIS-AML system received your query. "
+        "The crypt.ml system received your query. "
         "Session rules are stored and will be applied to all subsequent LLM-powered analysis. "
         "Check that Ollama is running and reachable at localhost:11434; "
-        "if you explicitly disabled LLM, set AEGIS_LLM_ENABLED=true to re-enable it.\n\n"
+        "if you explicitly disabled LLM, set CRYPT_ML_LLM_ENABLED=true to re-enable it.\n\n"
         "[SUGGESTED NEXT]\n"
         "- Run a Live Detection to see rules in action\n"
         "- Type 'show rules' to list active session rules\n"

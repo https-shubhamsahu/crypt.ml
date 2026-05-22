@@ -5,7 +5,7 @@ agent: planner
 argument-hint: feature=Describe the graph feature
 ---
 
-You are designing the Graph Intelligence layer for AEGIS-AML.
+You are designing the Graph Intelligence layer for crypt.ml.
 
 Feature request:
 ${input:feature}

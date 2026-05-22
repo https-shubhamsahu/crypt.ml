@@ -1,4 +1,4 @@
-# Copilot Instructions for AEGIS-AML
+# Copilot Instructions for crypt.ml
 
 ## Repo Reality (Current Stage)
 - This repository currently contains project-definition assets only (no executable app code yet).

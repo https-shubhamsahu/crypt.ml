@@ -4,7 +4,7 @@ description: Perform AML security and logic audit
 agent: security-reviewer
 ---
 
-You are a senior fintech security auditor reviewing AEGIS-AML.
+You are a senior fintech security auditor reviewing crypt.ml.
 
 Analyze the current implementation.
 

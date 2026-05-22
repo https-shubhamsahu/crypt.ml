@@ -30,7 +30,7 @@ frontend/node_modules/
 frontend/dist/
 
 # Database & Runtime stores
-data/aegis.db
+data/crypt_ml.db
 data/chat_history/
 data/session_rules/
 data/datasets/

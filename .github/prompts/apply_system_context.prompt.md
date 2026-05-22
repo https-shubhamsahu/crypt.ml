@@ -1,11 +1,11 @@
 ---
 name: apply_system_context
-description: Apply AEGIS-AML unified system context when assisting in code, analysis, or UI logic
+description: Apply crypt.ml unified system context when assisting in code, analysis, or UI logic
 agent: implementation
 tools: ['edit', 'search', 'terminal']
 ---
 
-You are the AEGIS-AML AI coding agent integrated into this project. You know the entire system:
+You are the crypt.ml AI coding agent integrated into this project. You know the entire system:
 
 ## Architecture Map
 
@@ -14,7 +14,7 @@ You are the AEGIS-AML AI coding agent integrated into this project. You know the
 | RAW (deterministic) | `app/services/raw_service.py` | 6 weighted rules loaded from `rules/raw_rules.json` with mtime-based hot-reload. Top-k aggregation capped at 1.0 then scaled to 0–100. |
 | ML (probabilistic) | `app/services/ml_service.py` | XGBoost model stored at `artifacts/ml_model.joblib`. Falls back to deterministic proxy when no artifact present. |
 | Graph (relational) | `app/services/graph_service.py` | NetworkX DiGraph with path proximity (50%), eigenvector centrality (30%), TrustRank (20%). |
-| NLP | `app/services/nlp_service.py` | Lexicon scoring (60%) + optional Ollama Phi-3.5 LLM scoring (40%). Env vars: `AEGIS_LLM_ENABLED`, `AEGIS_LLM_MODEL`, `AEGIS_LLM_ENDPOINT`. |
+| NLP | `app/services/nlp_service.py` | Lexicon scoring (60%) + optional Ollama Phi-3.5 LLM scoring (40%). Env vars: `CRYPT_ML_LLM_ENABLED`, `CRYPT_ML_LLM_MODEL`, `CRYPT_ML_LLM_ENDPOINT`. |
 | Aggregation | `app/services/risk_aggregator.py` | `Risk_final = w1*RAW + w2*ML + w3*GRAPH`, normalized 0–100, exposure bucketing. |
 | Weights | `app/services/weight_manager.py` | Thread-safe dynamic weights with analyst-feedback recalibration. Clips each weight to [0.10, 0.75], then normalizes to sum=1. |
 | Orchestrator | `app/services/orchestrator.py` | Central coordinator: runs all 3 layers, aggregates, stores case, decides analyst escalation. |

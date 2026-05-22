@@ -21,7 +21,7 @@ from app.main import app
 client = TestClient(app)
 
 # Disable API key for tests
-os.environ["AEGIS_REQUIRE_API_KEY"] = "false"
+os.environ["CRYPT_ML_REQUIRE_API_KEY"] = "false"
 
 
 # ── ML Predict ───────────────────────────────────────────────────────────────

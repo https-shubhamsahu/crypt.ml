@@ -6,7 +6,7 @@ tools: ['edit', 'terminal']
 argument-hint: endpoint=Endpoint name, purpose=Short description
 ---
 
-You are implementing a FastAPI endpoint for AEGIS-AML.
+You are implementing a FastAPI endpoint for crypt.ml.
 
 Endpoint name:
 ${input:endpoint}

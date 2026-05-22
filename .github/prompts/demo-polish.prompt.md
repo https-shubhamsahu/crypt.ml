@@ -4,7 +4,7 @@ description: Improve hackathon demo clarity and impact
 agent: demo-strategist
 ---
 
-You are preparing AEGIS-AML for a hackathon demo.
+You are preparing crypt.ml for a hackathon demo.
 
 Current feature:
 Scam Exposure Scanner

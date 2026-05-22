@@ -49,9 +49,9 @@ def main() -> int:
 
     print("Model pull completed successfully.")
     print("Set environment variables before running app:")
-    print("  $env:AEGIS_LLM_ENABLED='true'")
-    print(f"  $env:AEGIS_LLM_MODEL='{args.model}'")
-    print("  $env:AEGIS_LLM_ENDPOINT='http://localhost:11434/api/generate'")
+    print("  $env:CRYPT_ML_LLM_ENABLED='true'")
+    print(f"  $env:CRYPT_ML_LLM_MODEL='{args.model}'")
+    print("  $env:CRYPT_ML_LLM_ENDPOINT='http://localhost:11434/api/generate'")
     return 0
 
 

@@ -23,12 +23,12 @@ export default function AppShell({ children }) {
       <header className="header">
         <div className="brand-wrap" style={{ maxWidth: '100%', padding: '0.8rem 1.5rem' }}>
           <div className="brand-left">
-            <div className="brand-icon" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-              <Shield size={20} color="#3b82f6" />
+            <div className="brand-icon" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: 28, height: 28, overflow: 'hidden', borderRadius: '4px', background: 'rgba(255,255,255,0.03)', border: '1px solid var(--border-soft)' }}>
+              <img src="/logo.png" alt="crypt.ml logo" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
             </div>
             <div>
-              <h1 style={{ fontSize: '1.25rem', fontWeight: 800, background: 'linear-gradient(90deg, #3b82f6, #9333ea)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
-                AEGIS-AML
+              <h1 style={{ fontSize: '1.25rem', fontWeight: 800, letterSpacing: '-0.02em', background: 'linear-gradient(90deg, #3b82f6, #9333ea)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
+                crypt.ml
               </h1>
               <p style={{ margin: 0, fontSize: '0.68rem', color: 'var(--text-secondary)', fontWeight: 600 }}>
                 Enterprise Multi-Agent Compliance System

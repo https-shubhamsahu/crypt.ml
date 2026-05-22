@@ -86,7 +86,7 @@ class MLTrainResponse(BaseModel):
 
 
 class LLMChatRequest(BaseModel):
-    """Send a message to the AEGIS-AML LLM assistant via API."""
+    """Send a message to the crypt.ml LLM assistant via API."""
 
     message: str = Field(..., min_length=1, max_length=2000, description="User message / question")
     system_context: Optional[str] = Field(

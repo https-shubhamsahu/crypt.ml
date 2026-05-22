@@ -6,7 +6,7 @@ import uuid
 from datetime import datetime, UTC
 from typing import Dict, List, Any, Optional
 
-DB_FILE = "data/aegis.db"
+DB_FILE = "data/crypt_ml.db"
 _lock = threading.Lock()
 
 def get_db_connection() -> sqlite3.Connection:

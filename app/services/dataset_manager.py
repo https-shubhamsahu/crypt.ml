@@ -1,4 +1,4 @@
-"""Dataset catalogue manager for AEGIS-AML.
+"""Dataset catalogue manager for crypt.ml.
 
 Handles registration, metadata tracking, quick-stats computation, and
 persistence of dataset records to a lightweight JSON registry.

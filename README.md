@@ -1,4 +1,4 @@
-# 🛡️ AEGIS-AML — Autonomous Multi-Agent AML & CFT Platform
+# 🛡️ crypt.ml — Autonomous Multi-Agent AML & CFT Platform
 
 [![FastAPI](https://img.shields.io/badge/FastAPI-005571?style=for-the-badge&logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com/)
 [![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)](https://react.dev/)
@@ -9,20 +9,20 @@
 [![Render](https://img.shields.io/badge/Render-46E3B7?style=for-the-badge&logo=render&logoColor=black)](https://render.com/)
 [![Vercel](https://img.shields.io/badge/Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white)](https://vercel.com/)
 
-AEGIS-AML is a production-ready, local-first **Autonomous Multi-Agent Anti-Money Laundering (AML)** and Counter-Financing of Terrorism (CFT) platform. Built to move beyond rigid, legacy rule-based triggers, AEGIS implements an event-driven cooperative network of specialized AI agents, real-time transaction network graphs, predictive machine learning (XGBoost + local SHAP explanation features), and interactive compliance tools inside a premium, glassmorphic dark-mode dashboard.
+crypt.ml is a production-ready, local-first **Autonomous Multi-Agent Anti-Money Laundering (AML)** and Counter-Financing of Terrorism (CFT) platform. Built to move beyond rigid, legacy rule-based triggers, crypt.ml implements an event-driven cooperative network of specialized AI agents, real-time transaction network graphs, predictive machine learning (XGBoost + local SHAP explanation features), and interactive compliance tools inside a premium, glassmorphic dark-mode dashboard.
 
 ---
 
 ## 🎨 System Showcase & Visual Preview
 
 ### High-Fidelity Management Dashboard
-![AEGIS-AML Dashboard Showcase](assets/ui_showcase.webp)
+![crypt.ml Dashboard Showcase](assets/ui_showcase.webp)
 
 ---
 
 ## 🏗️ Multi-Agent Event-Driven Architecture
 
-At the core of AEGIS-AML is a cooperative, event-driven multi-agent framework orchestrated via an asynchronous, central `EventBus`. Instead of evaluating transactions in isolation, five specialized agents coordinate in parallel to exchange findings, invoke dedicated tooling, publish analysis tokens, and reach an objective risk consensus.
+At the core of crypt.ml is a cooperative, event-driven multi-agent framework orchestrated via an asynchronous, central `EventBus`. Instead of evaluating transactions in isolation, five specialized agents coordinate in parallel to exchange findings, invoke dedicated tooling, publish analysis tokens, and reach an objective risk consensus.
 
 ### Agentic Pipeline Flow
 
@@ -83,7 +83,7 @@ sequenceDiagram
 
 ## 🤖 Meet the Autonomous Agents
 
-Every agent in the AEGIS platform inherits from a standardized `BaseAgent` structure, equipped with a dedicated `ToolRegistry` for execution, localized `AgentMemory` for observation histories, and asynchronous pub-sub capabilities.
+Every agent in the crypt.ml platform inherits from a standardized `BaseAgent` structure, equipped with a dedicated `ToolRegistry` for execution, localized `AgentMemory` for observation histories, and asynchronous pub-sub capabilities.
 
 | Agent Name | Primary Responsibility | Algorithms & Tooling | Fallback Strategy |
 | :--- | :--- | :--- | :--- |
@@ -128,7 +128,7 @@ Below is an authentic JSON event token captured from the central event registry 
 
 ## 🎨 Premium Glassmorphic Design System
 
-The AEGIS frontend is designed to deliver a modern, premium experience. Operating strictly on **Vanilla CSS** and customized **HSL variable design tokens**, it provides:
+The crypt.ml frontend is designed to deliver a modern, premium experience. Operating strictly on **Vanilla CSS** and customized **HSL variable design tokens**, it provides:
 
 * **Sleek HSL Palettes**: Elegant deep space shades matched with neon warnings (`--warning: 38 92% 50%`) and toxic reds (`--danger: 0 84% 60%`).
 * **Glassmorphic Backdrops**: Dense background-blurs (`backdrop-filter: blur(16px)`), thin translucent borders, and ambient box shadows to deliver three-dimensional depth.
@@ -139,7 +139,7 @@ The AEGIS frontend is designed to deliver a modern, premium experience. Operatin
 
 ## ⚡ Core API Reference
 
-The FastAPI service exposes fully validated Pydantic endpoints. When `AEGIS_REQUIRE_API_KEY=true` is set, calls require authentication via the `x-api-key` header.
+The FastAPI service exposes fully validated Pydantic endpoints. When `CRYPT_ML_REQUIRE_API_KEY=true` is set, calls require authentication via the `x-api-key` header.
 
 | Category | HTTP Method | Route | Description | Auth Required |
 | :--- | :--- | :--- | :--- | :--- |
@@ -183,7 +183,7 @@ Make sure you have installed **Python 3.10+** and **Node.js 18+**.
    python -m uvicorn app.main:app --reload --host 127.0.0.1 --port 8000
    ```
    * *Interactive Swagger Documentation is served at:* `http://127.0.0.1:8000/docs`
-   * *The database file is created dynamically at:* `data/aegis.db`
+   * *The database file is created dynamically at:* `data/crypt_ml.db`
 
 ### 2. Frontend React Client Setup
 1. **Navigate to the frontend directory**:
@@ -228,32 +228,32 @@ To package the entire backend system into a production-ready image, use the stan
 
 ```bash
 # Build the image locally
-docker build -t aegis-aml-backend .
+docker build -t crypt.ml-backend .
 
 # Run the container mapping FastAPI port 8000
-docker run -d -p 8000:8000 -v $(pwd)/data:/app/data aegis-aml-backend
+docker run -d -p 8000:8000 -v $(pwd)/data:/app/data crypt.ml-backend
 ```
 
 ---
 
 ## 🚀 One-Click Cloud Deployments
 
-AEGIS-AML is configured for effortless cloud hosting with persistent storage and optimized SPA routing.
+crypt.ml is configured for effortless cloud hosting with persistent storage and optimized SPA routing.
 
 ### Backend (Render Cloud Platform)
-AEGIS has a ready-made `render.yaml` Blueprint definition:
+crypt.ml has a ready-made `render.yaml` Blueprint definition:
 1. Navigate to your **Render Dashboard** and select **New → Blueprint**.
 2. Connect your cloned GitHub repository.
 3. Render automatically maps:
    * A **Python FastAPI Web Service** built via `Dockerfile`.
-   * A **1 GB Persistent Disk Volume** mounted at `/app/data` ensuring your `aegis.db` remains safe across dyno restarts.
+   * A **1 GB Persistent Disk Volume** mounted at `/app/data` ensuring your `crypt_ml.db` remains safe across dyno restarts.
 4. Click **Deploy**.
 
 ### Frontend (Vercel Global Edge)
-AEGIS has pre-configured Vercel configurations (`vercel.json`) to redirect routes to `index.html` for clean React Router SPA pathing:
+crypt.ml has pre-configured Vercel configurations (`vercel.json`) to redirect routes to `index.html` for clean React Router SPA pathing:
 1. Navigate to **Vercel Console** and import the repository.
 2. Select the `frontend` folder as the root directory.
 3. Under **Environment Variables**, add:
    * **Key**: `VITE_API_BASE_URL`
-   * **Value**: Your Render Backend Service URL (e.g. `https://aegis-aml-backend.onrender.com`).
+   * **Value**: Your Render Backend Service URL (e.g. `https://crypt.ml-backend.onrender.com`).
 4. Click **Deploy**.

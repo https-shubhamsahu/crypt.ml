@@ -26,7 +26,7 @@ function Get-ListenerInfo {
 $apiInfo = Get-ListenerInfo -Port 8000
 $uiInfo = Get-ListenerInfo -Port 8501
 
-Write-Output "=== AEGIS-AML Service Status ==="
+Write-Output "=== crypt.ml Service Status ==="
 Write-Output ""
 
 Write-Output "API (127.0.0.1:8000)"

@@ -5,7 +5,7 @@ agent: implementation
 tools: ['search', 'terminal']
 ---
 
-You are advising on ML threshold tuning for AEGIS-AML fraud detection.
+You are advising on ML threshold tuning for crypt.ml fraud detection.
 
 ## Context
 

@@ -32,7 +32,7 @@ _active_session_rules: List[Rule] = []
 
 
 def _is_llm_enabled() -> bool:
-    raw = os.getenv("AEGIS_LLM_ENABLED", "").strip().lower()
+    raw = os.getenv("CRYPT_ML_LLM_ENABLED", "").strip().lower()
     if raw in {"0", "false", "no", "off"}:
         return False
     if raw in {"1", "true", "yes", "on"}:
@@ -103,8 +103,8 @@ def _analyze_with_local_llm(
     if not llm_enabled:
         return 0.0, [], None
 
-    endpoint = os.getenv("AEGIS_LLM_ENDPOINT", "http://localhost:11434/api/generate")
-    model = os.getenv("AEGIS_LLM_MODEL", "phi3.5")
+    endpoint = os.getenv("CRYPT_ML_LLM_ENDPOINT", "http://localhost:11434/api/generate")
+    model = os.getenv("CRYPT_ML_LLM_MODEL", "phi3.5")
 
     base_prompt = (
         "You are an AML NLP analyzer. Return STRICT JSON with keys: "

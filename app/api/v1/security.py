@@ -12,14 +12,14 @@ _api_key_header = APIKeyHeader(name="x-api-key", auto_error=False)
 def require_api_key(
     x_api_key: str | None = Security(_api_key_header),
 ) -> None:
-    """Enforce API key when AEGIS_REQUIRE_API_KEY=true."""
+    """Enforce API key when CRYPT_ML_REQUIRE_API_KEY=true."""
     if not SHARING_CONFIG.require_api_key:
         return
 
     if not SHARING_CONFIG.api_key:
         raise HTTPException(
             status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
-            detail="API key protection enabled but AEGIS_API_KEY is not configured.",
+            detail="API key protection enabled but crypt.ml_API_KEY is not configured.",
         )
 
     if x_api_key != SHARING_CONFIG.api_key:

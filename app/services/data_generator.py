@@ -1,5 +1,5 @@
 """
-Synthetic Training Data Generator for AEGIS-AML.
+Synthetic Training Data Generator for crypt.ml.
 
 Generates realistic AML/fraud transaction CSV data in three supported schemas:
   1. Unified  — direct model features (transaction_amount, tx_count_last_hour, has_upi, nlp_signal, label)

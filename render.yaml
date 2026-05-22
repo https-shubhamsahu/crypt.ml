@@ -1,6 +1,6 @@
 services:
   - type: web
-    name: aegis-aml-backend
+    name: crypt.ml-backend
     env: docker
     plan: free
     region: oregon
@@ -12,6 +12,6 @@ services:
       - key: REQUIRE_API_KEY
         value: "false"
     disk:
-      name: aegis-data
+      name: crypt_ml-data
       mountPath: /app/data
       sizeGB: 1

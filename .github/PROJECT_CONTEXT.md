@@ -1,8 +1,8 @@
-# AEGIS-AML — Project Context
+# crypt.ml — Project Context
 
 ## 1. Project Overview
 
-AEGIS-AML is a next-generation Anti-Money Laundering (AML) system designed to solve the Compliance Trilemma:
+crypt.ml is a next-generation Anti-Money Laundering (AML) system designed to solve the Compliance Trilemma:
 
 1. High Recall — Detect complex multi-hop laundering networks (mule rings, layering).
 2. Low False Positives — Reduce noise that overwhelms compliance teams.
@@ -14,7 +14,7 @@ The system replaces static rule engines with a multi-layer, agentic architecture
 
 ## 2. Core Architecture
 
-AEGIS-AML is built on a 3-layer intelligence model.
+crypt.ml is built on a 3-layer intelligence model.
 
 ### Layer 1 — RAW Agent (Deterministic Guardrails)
 

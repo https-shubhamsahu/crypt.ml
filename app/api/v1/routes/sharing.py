@@ -73,7 +73,7 @@ _cache_lock = Lock()
 
 
 def _is_llm_enabled() -> bool:
-    raw = os.getenv("AEGIS_LLM_ENABLED", "").strip().lower()
+    raw = os.getenv("CRYPT_ML_LLM_ENABLED", "").strip().lower()
     if raw in {"0", "false", "no", "off"}:
         return False
     if raw in {"1", "true", "yes", "on"}:
@@ -380,7 +380,7 @@ def llm_chat(
     payload: LLMChatRequest,
     _: None = Depends(require_api_key),
 ) -> LLMChatResponse:
-    """Send a message to the AEGIS-AML LLM assistant.
+    """Send a message to the crypt.ml LLM assistant.
 
     Session rules from the API rule store are automatically injected.
     Supports natural-language rule injection (same as the dashboard AI Chat).
@@ -400,7 +400,7 @@ def llm_chat(
     set_session_rules(active_rules)
 
     system_ctx = payload.system_context or (
-        "You are the AEGIS-AML AI assistant. You help analyse anti-money-laundering "
+        "You are the crypt.ml AI assistant. You help analyse anti-money-laundering "
         "transactions, explain risk scores, discuss SHAP features, and recommend actions. "
         "You MUST honour all active session rules in your reasoning."
     )
@@ -422,7 +422,7 @@ def llm_chat(
         chat_store.add(role="assistant", text=sections.get("result") or raw_response)
 
     llm_enabled = _is_llm_enabled()
-    model_name = os.getenv("AEGIS_LLM_MODEL", "phi3.5") if llm_enabled else "fallback"
+    model_name = os.getenv("CRYPT_ML_LLM_MODEL", "phi3.5") if llm_enabled else "fallback"
 
     return LLMChatResponse(
         reply=raw_response,
@@ -440,8 +440,8 @@ def llm_status(
 ) -> LLMStatusResponse:
     """Check LLM (Ollama) connectivity and configuration."""
     llm_enabled = _is_llm_enabled()
-    endpoint = os.getenv("AEGIS_LLM_ENDPOINT", "http://localhost:11434/api/generate")
-    model_name = os.getenv("AEGIS_LLM_MODEL", "phi3.5")
+    endpoint = os.getenv("CRYPT_ML_LLM_ENDPOINT", "http://localhost:11434/api/generate")
+    model_name = os.getenv("CRYPT_ML_LLM_MODEL", "phi3.5")
 
     # Quick connectivity probe
     ollama_reachable = False

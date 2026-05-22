@@ -75,7 +75,7 @@ class TestDetectRules:
 # ── 2) Rule Parsing (heuristic fallback, no LLM) ────────────────────────────
 
 class TestParseRulesHeuristic:
-    """parse_rules falls back to heuristic when AEGIS_LLM_ENABLED is not set."""
+    """parse_rules falls back to heuristic when CRYPT_ML_LLM_ENABLED is not set."""
 
     def test_recall_target(self) -> None:
         rules = parse_rules("Set recall to 0.75 for this session")
@@ -331,7 +331,7 @@ class TestChatWithRules:
         response = chat_with_rules(
             user_message="Hello",
             session_rules=[],
-            system_context="You are AEGIS-AML",
+            system_context="You are crypt.ml",
             ml_artifacts="ROC-AUC=0.929",
         )
         assert "[PLAN]" in response

@@ -11,7 +11,7 @@ from app.api.v1.routes.agent_routes import router as agent_router
 from app.core.sharing_config import SHARING_CONFIG
 from app.core.database import init_db
 
-app = FastAPI(title="AEGIS-AML", version="0.1.0")
+app = FastAPI(title="crypt.ml", version="0.1.0")
 
 @app.on_event("startup")
 def on_startup() -> None:
@@ -35,7 +35,7 @@ app.include_router(agent_router)
 @app.get("/")
 def root() -> dict[str, str]:
 	return {
-		"service": "AEGIS-AML",
+		"service": "crypt.ml",
 		"status": "running",
 		"docs": "/docs",
 		"health": "/api/v1/health",

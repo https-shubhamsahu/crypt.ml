@@ -1,4 +1,4 @@
-"""Prompt evaluation harness for AEGIS-AML agent prompts.
+"""Prompt evaluation harness for crypt.ml agent prompts.
 
 Validates that prompt files are well-formed, contain required sections,
 and that the agent behavior constraints are internally consistent.
