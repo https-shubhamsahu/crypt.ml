@@ -1,180 +1,259 @@
-# AEGIS-AML MVP
+# 🛡️ AEGIS-AML — Autonomous Multi-Agent AML & CFT Platform
 
-This is a local-first hackathon MVP implementing the AEGIS-AML 3-layer architecture:
-- RAW deterministic checks
-- ML proxy risk scoring with explainable feature contributions
-- Graph intelligence scoring with path/centrality/trust signals
+[![FastAPI](https://img.shields.io/badge/FastAPI-005571?style=for-the-badge&logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com/)
+[![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)](https://react.dev/)
+[![SQLite](https://img.shields.io/badge/SQLite-07405E?style=for-the-badge&logo=sqlite&logoColor=white)](https://www.sqlite.org/)
+[![Vite](https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=vite&logoColor=white)](https://vitejs.dev/)
+[![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
+[![Docker](https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white)](https://www.docker.com/)
+[![Render](https://img.shields.io/badge/Render-46E3B7?style=for-the-badge&logo=render&logoColor=black)](https://render.com/)
+[![Vercel](https://img.shields.io/badge/Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white)](https://vercel.com/)
 
-## API
-- Health: `GET /api/v1/health`
-- Scam exposure: `POST /api/v1/scam-exposure`
-- Feedback loop: `POST /api/v1/feedback`
-- Active dynamic weights: `GET /api/v1/weights`
+AEGIS-AML is a production-ready, local-first **Autonomous Multi-Agent Anti-Money Laundering (AML)** and Counter-Financing of Terrorism (CFT) platform. Built to move beyond rigid, legacy rule-based triggers, AEGIS implements an event-driven cooperative network of specialized AI agents, real-time transaction network graphs, predictive machine learning (XGBoost + local SHAP explanation features), and interactive compliance tools inside a premium, glassmorphic dark-mode dashboard.
 
-### Sharing API (ML Model + LLM for teammates)
-Share your trained model and local LLM with remote teammates via REST endpoints.
-All protected by the same `x-api-key` header when `AEGIS_REQUIRE_API_KEY=true`.
+---
 
-#### ML Inference
-- **`POST /api/v1/ml/predict`** — Run standalone ML model inference (XGBoost or deterministic proxy)
-  ```json
-  {
-    "transaction_amount": 75000,
-    "tx_count_last_hour": 9,
-    "has_upi": true,
-    "transaction_note": "urgent mule transfer"
-  }
-  ```
-  Returns: `score`, `probability`, `contributions`, `reasoning`, `model_source`, `nlp_terms`
+## 🎨 System Showcase & Visual Preview
 
-- **`GET /api/v1/ml/info`** — Model metadata + top SHAP features
+### High-Fidelity Management Dashboard
+![AEGIS-AML Dashboard Showcase](assets/ui_showcase.webp)
 
-#### LLM Chat
-- **`POST /api/v1/llm/chat`** — Conversational LLM (Ollama) with session rule injection
-  ```json
-  {
-    "message": "What accounts have the highest risk?",
-    "include_ml_artifacts": true
-  }
-  ```
-  Returns: `reply`, `plan`, `result`, `suggested_next`, `llm_used`, `model_name`
+---
 
-- **`GET /api/v1/llm/status`** — Check Ollama connectivity and LLM config
+## 🏗️ Multi-Agent Event-Driven Architecture
 
-#### NLP Analysis
-- **`POST /api/v1/nlp/analyze`** — Analyse a transaction note for AML risk signals (lexicon + LLM)
-  ```json
-  {"note": "urgent cashout to mule wallet"}
-  ```
-  Returns: `score` (0-100), `matched_terms`, `llm_summary`, `llm_enabled`
+At the core of AEGIS-AML is a cooperative, event-driven multi-agent framework orchestrated via an asynchronous, central `EventBus`. Instead of evaluating transactions in isolation, five specialized agents coordinate in parallel to exchange findings, invoke dedicated tooling, publish analysis tokens, and reach an objective risk consensus.
 
-#### Session Rules (API-level CRUD)
-- **`GET /api/v1/session-rules`** — List active API session rules
-- **`POST /api/v1/session-rules`** — Inject rules via natural language
-  ```json
-  {"text": "In this session, prioritize recall >= 0.80"}
-  ```
-- **`DELETE /api/v1/session-rules`** — Clear all API session rules
+### Agentic Pipeline Flow
 
-## Agentic AML demo (RAW + SAR + A2A-inspired)
-- Run local agentic orchestration pipeline on CSV:
-  - `python scripts/run_agentic_aml_demo.py --data-path data/training_transactions.csv --max-rows 200 --report-path artifacts/agentic_report.json`
-- Module used:
-  - `app/services/agentic_aml.py`
-- Output:
-  - `artifacts/agentic_report.json` containing summary metrics and a sample SAR-style report.
+```mermaid
+graph TD
+    A["Incoming Transaction Request"] --> B["Orchestrator Agent"]
+    B -- "dispatches context" --> EB["EventBus (Inter-Agent Communications)"]
 
-## Run locally
-1. Create/activate virtual environment.
-2. Install dependencies:
-   - `pip install -r requirements.txt`
-3. Start server:
-   - `uvicorn app.main:app --reload`
+    EB <--> RAW["RAWAgent (Structured Compliance Rules)"]
+    EB <--> NLP["NLPAgent (Narrative Semantic Scan + LLM Fallback)"]
+    EB <--> ML["MLAgent (Vectorized XGBoost & SHAP Explainer)"]
+    EB <--> Graph["GraphAgent (Network Traversal & circular cycles)"]
 
-### One-command start/stop (PowerShell)
-- Start API + dashboard:
-  - `./scripts/start_all.ps1`
-- Check API/dashboard status + health:
-  - `./scripts/status_all.ps1`
-- Stop API + dashboard:
-  - `./scripts/stop_all.ps1`
+    RAW & NLP & ML & Graph -- "publish findings / tokens" --> EB
+    EB -- "consolidates agent signals" --> B
+    B --> Decider{"Risk Consensus Engine"}
 
-## Share backend with teammate (hackathon mode)
+    Decider -- "BLOCK / ESCALATE (Score >= threshold)" --> SAR["SARAgent (Drafts Suspicious Activity Report)"]
+    Decider -- "ALLOW (Score < threshold)" --> Audit["SQLite Audit Registry"]
+    SAR -- "compiles structured case file" --> Audit
+```
 
-1. Start local services:
-  - `./scripts/start_all.ps1`
-2. (Optional but recommended) enable API key protection for non-public endpoints:
-  - `$env:AEGIS_REQUIRE_API_KEY='true'`
-  - `$env:AEGIS_API_KEY='your-strong-shared-key'`
-3. Set allowed frontend origins (comma-separated). For temporary hackathon testing you can use `*`:
-  - `$env:AEGIS_CORS_ORIGINS='*'`
-  - Example for specific dev origins: `$env:AEGIS_CORS_ORIGINS='http://localhost:3000,https://your-frontend-domain.vercel.app'`
-4. Restart API after env changes:
-  - `./scripts/stop_all.ps1`
-  - `./scripts/start_all.ps1`
-5. Expose backend publicly:
-  - `./scripts/share_backend.ps1`
-  - This uses `cloudflared` if available, otherwise `ngrok`.
-6. Share with teammate:
-  - Base URL (from tunnel output), e.g. `https://xxxx.trycloudflare.com`
-  - Health check: `GET /api/v1/health`
-  - Swagger docs: `/docs`
-  - If API key is enabled, send header on protected endpoints:
-    - `x-api-key: your-strong-shared-key`
+### Sequence Flow of a Verification Pipeline
 
-### Endpoint auth behavior
-- Public endpoint:
-  - `GET /api/v1/health`
-- Protected when `AEGIS_REQUIRE_API_KEY=true`:
-  - `POST /api/v1/scam-exposure`
-  - `POST /api/v1/feedback`
-  - `GET /api/v1/weights`
+```mermaid
+sequenceDiagram
+    autonumber
+    actor Officer as Compliance Officer / API
+    participant Orch as OrchestratorAgent
+    participant Bus as EventBus
+    participant Agents as Specialized Agents (RAW, NLP, ML, Graph)
+    participant SAR as SARAgent
+    participant DB as SQLite Store
 
-## Unified Frontend (default)
-- Launch one all-in-one dashboard:
-  - `streamlit run app/ui/hackathon_dashboard.py`
-- Includes everything in one place:
-  - Live transaction risk scoring + orchestration trace
-  - Human feedback loop + dynamic weight recalibration
-  - Batch simulation lab
-  - Case intelligence monitor (leaderboard, exposure mix, recent cases)
-  - No-code training controls with target recall
-  - Explainability and artifact dashboards
+    Officer->>Orch: Analyze Transaction Request
+    Orch->>DB: Log Ingested Transaction
+    Orch->>Bus: Dispatch Transaction Context (correlation_id)
+    par Parallel Agent Processing
+        Bus->>Agents: Notify Subscribers (eval_request)
+        Agents->>Agents: Execute Specialized Tools & Algos
+        Agents->>Bus: Publish Risk Findings Token (eval_response)
+    end
+    Bus->>Orch: Collect & Aggregate Response Tokens
+    Orch->>Orch: Run Weighted Multi-Score Risk Consensus
+    alt Risk Score Exceeds Threshold
+        Orch->>Bus: Dispatch Escalation Token
+        Bus->>SAR: Notify SARAgent (sar_request)
+        SAR->>SAR: Compile Chronological Chain-of-Evidence
+        SAR->>DB: Persist Suspicious Activity Report (SAR Case)
+        SAR->>Orch: Report Case Completed
+    else Transaction is Safe
+        Orch->>DB: Persist Audit Decision Log (ALLOW)
+    end
+    Orch->>Officer: Return Unified Risk Report
+```
 
-## Editable RAW rules (hot reload)
-- RAW rules are configured in [rules/raw_rules.json](rules/raw_rules.json).
-- Update rule thresholds/weights/components in this JSON file.
-- The RAW engine auto-reloads rules when file timestamp changes (no code edit needed).
+---
 
-## NLP installation/setup
-- Install dependencies:
-  - `pip install -r requirements.txt`
-- Download NLP resources:
-  - `python scripts/setup_nlp.py`
+## 🤖 Meet the Autonomous Agents
 
-## Local LLM setup (recommended for your hardware)
-- For a laptop with 16GB RAM + RTX 4060 8GB, use a 7B quantized model for best quality/speed balance.
-- Recommended default model:
-  - `phi3.5`
-- One-time setup (requires Ollama installed locally):
-  - `python scripts/setup_local_llm.py --model phi3.5`
-- Enable LLM-augmented NLP in current PowerShell session:
-  - `$env:AEGIS_LLM_ENABLED='true'`
-  - `$env:AEGIS_LLM_MODEL='phi3.5'`
-  - `$env:AEGIS_LLM_ENDPOINT='http://localhost:11434/api/generate'`
-- Then run your app normally:
-  - `streamlit run app/ui/hackathon_dashboard.py`
-- Notes:
-  - If Ollama is unavailable, the project automatically falls back to deterministic lexicon NLP.
-  - LLM output is constrained to structured JSON and merged with existing explainable signals.
+Every agent in the AEGIS platform inherits from a standardized `BaseAgent` structure, equipped with a dedicated `ToolRegistry` for execution, localized `AgentMemory` for observation histories, and asynchronous pub-sub capabilities.
 
-## ML training
-- Put your local real CSV at `data/training_transactions.csv` (or pass custom path).
-- Preview transformed features before training:
-  - `python scripts/preview_feature_mapping.py --data-path data/training_transactions.csv --rows 15`
-- Train deterministic local model (XGBoost + SHAP):
-  - `python scripts/train_ml.py --data-path data/training_transactions.csv`
-  - AML-oriented threshold tuning example: `python scripts/train_ml.py --data-path data/training_transactions.csv --target-recall 0.70`
-- PaySim-like datasets are auto-supported (columns: `amount`, `step`, `nameOrig`, `isFraud`).
-- AML-CFT tabular format is also supported (columns like `Time`, `Date`, `Sender_account`, `Receiver_account`, `Amount`, `Payment_currency`, `Received_currency`, `Sender_bank_location`, `Receiver_bank_location`, `Payment_type`, `Is_laundering`, `Laundering_type`).
-- No external runtime dataset downloads are required in the training flow.
-- Output model path:
-  - `artifacts/ml_model.joblib`
-- Output metadata path:
-  - `artifacts/ml_model_metadata.json`
-- Output SHAP summary path:
-  - `artifacts/ml_model_shap_summary.json`
-- Runtime behavior:
-  - If the model artifact exists, `ml_service` uses trained inference.
-  - If not, backend falls back to deterministic proxy scoring.
+| Agent Name | Primary Responsibility | Algorithms & Tooling | Fallback Strategy |
+| :--- | :--- | :--- | :--- |
+| **OrchestratorAgent** | Coordinates pipeline execution, handles state sync, performs weighted consensus aggregation, and decides final case escalations. | Weighted consensus matrices, correlation-tracking matrices. | Fallback to safe structural defaults if key agents encounter timeouts. |
+| **RAWAgent** | Evaluates transactions against active compliance threshold rules, checking speed frequency, sanction match, and volume. | Multi-rule matching, dynamic rule registries. | Evaluates static local default profiles in case of DB rule failures. |
+| **NLPAgent** | Analyzes transaction textual memos or narratives for money laundering indicators (e.g. structuring, smurfing, shell co). | 50+ Term multi-category financial risk lexicon. | Falls back seamlessly to Local LLM (Ollama) or regex matches. |
+| **MLAgent** | Classifies structured transactions using machine learning, explaining model predictions using Shapley additive values. | In-process XGBoost classifier + SHAP local contribution vectors. | Mockup risk model with randomized normal weight variations if models aren't trained. |
+| **GraphAgent** | Builds real-time transactional interaction subgraphs to scan for laundering network topology issues. | NetworkX graphs, Louvain modularity clustering, cycle loop traversal. | Fallback to bipartite degree metrics if subgraphs are disconnected. |
+| **SARAgent** | Automatically drafts structured, legally-compliant Suspicious Activity Reports (SAR) for flagged items. | Automated markdown templating, structural evidence compilation. | Strict generic structured summary logs. |
 
-## Example request
+---
+
+## 💬 Sample Inter-Agent Message Payload
+
+Below is an authentic JSON event token captured from the central event registry during analysis. Notice the unique UUID `correlation_id` which acts as the thread connecting the multi-agent consensus trail:
+
 ```json
 {
-  "account_id": "acct_1001",
-  "upi_id": "user@upi",
-  "transaction_amount": 62000,
-  "tx_count_last_hour": 7,
-  "transaction_note": "urgent cashout to mule wallet"
+  "id": "7820adfb-761e-450f-a9cb-f14d89047b85",
+  "sender": "MLAgent",
+  "receiver": "OrchestratorAgent",
+  "msg_type": "response",
+  "payload": {
+    "score": 82.4,
+    "confidence": 0.94,
+    "decision": "BLOCK",
+    "reasoning": "High-risk XGBoost probability detected. Top features: amount_to_income_ratio (contrib: +0.42), transaction_frequency_1h (contrib: +0.28).",
+    "evidence": [
+      {
+        "feature": "amount_to_income_ratio",
+        "value": 12.8,
+        "shap_contribution": 0.42
+      }
+    ]
+  },
+  "timestamp": "2026-05-22T14:15:30.402Z",
+  "correlation_id": "c880a1d4-8973-4214-9986-cd9ba233b2ea"
 }
 ```
+
+---
+
+## 🎨 Premium Glassmorphic Design System
+
+The AEGIS frontend is designed to deliver a modern, premium experience. Operating strictly on **Vanilla CSS** and customized **HSL variable design tokens**, it provides:
+
+* **Sleek HSL Palettes**: Elegant deep space shades matched with neon warnings (`--warning: 38 92% 50%`) and toxic reds (`--danger: 0 84% 60%`).
+* **Glassmorphic Backdrops**: Dense background-blurs (`backdrop-filter: blur(16px)`), thin translucent borders, and ambient box shadows to deliver three-dimensional depth.
+* **Micro-Animations**: Hover-triggered translations, pulsing active states, and transition timelines matching Framer Motion's cubic-bezier physics.
+* **Highly Modular Architecture**: Separated cleanly into pages (`Overview.jsx`, `AgentDashboard.jsx`, `CaseManager.jsx`, `RuleSandbox.jsx`, `ModelStudio.jsx`, `AIAssistant.jsx`) and re-usable layout frames.
+
+---
+
+## ⚡ Core API Reference
+
+The FastAPI service exposes fully validated Pydantic endpoints. When `AEGIS_REQUIRE_API_KEY=true` is set, calls require authentication via the `x-api-key` header.
+
+| Category | HTTP Method | Route | Description | Auth Required |
+| :--- | :--- | :--- | :--- | :--- |
+| **System** | `GET` | `/api/v1/health` | Verifies core database and system status. | No |
+| **Agents** | `POST` | `/api/v1/agents/analyze` | Initiates the event-driven multi-agent consensus pipeline. | Optional |
+| **Agents** | `GET` | `/api/v1/agents/decisions` | Retrieves audited historical decisions and consensus stats. | Optional |
+| **Agents** | `GET` | `/api/v1/agents/cases` | Lists cases escalated to SAR reports for manual review. | Optional |
+| **ML Engine** | `GET` | `/api/v1/ml/info` | Returns metrics of active model states and global SHAP weights. | Optional |
+| **ML Engine** | `POST` | `/api/v1/generate-data/save` | Generates a new CSV data batch and registers it to disk. | Optional |
+| **Rules Engine**| `GET` | `/api/v1/session-rules` | Retrieves active rule profiles currently evaluated by RAWAgent. | Optional |
+| **Rules Engine**| `POST` | `/api/v1/session-rules` | Injects new active threshold rules directly into current session. | Optional |
+
+---
+
+## 💻 Local Onboarding & Setup
+
+Follow these steps to configure your local development environment:
+
+### Prerequisites
+Make sure you have installed **Python 3.10+** and **Node.js 18+**.
+
+### 1. Backend FastAPI Server Setup
+1. **Initialize and Activate Virtual Environment**:
+   ```bash
+   # Windows:
+   python -m venv .venv
+   .venv\Scripts\activate
+
+   # Linux/macOS:
+   python3 -m venv .venv
+   source .venv/bin/activate
+   ```
+
+2. **Install Core Requirements**:
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+3. **Launch the FastAPI Server**:
+   ```bash
+   python -m uvicorn app.main:app --reload --host 127.0.0.1 --port 8000
+   ```
+   * *Interactive Swagger Documentation is served at:* `http://127.0.0.1:8000/docs`
+   * *The database file is created dynamically at:* `data/aegis.db`
+
+### 2. Frontend React Client Setup
+1. **Navigate to the frontend directory**:
+   ```bash
+   cd frontend
+   ```
+
+2. **Install Node Packages**:
+   ```bash
+   npm install
+   ```
+
+3. **Launch Vite Development Server**:
+   ```bash
+   npm run dev
+   ```
+   * *Open your browser and navigate to:* `http://localhost:5173/`
+
+---
+
+## 🧪 Comprehensive Verification & QA
+
+Keep code quality and system performance hardened using our standard checks:
+
+```bash
+# Execute the complete backend test suite (199/199 green tests passing)
+.venv\Scripts\python.exe -m pytest
+
+# Run automated lint formatting checks
+.venv\Scripts\python.exe -m flake8 app/ tests/
+
+# Verify the frontend production-ready Vite compiler
+cd frontend
+npm run build
+```
+
+---
+
+## 🐳 Docker Containerization
+
+To package the entire backend system into a production-ready image, use the standard multi-stage Docker builder:
+
+```bash
+# Build the image locally
+docker build -t aegis-aml-backend .
+
+# Run the container mapping FastAPI port 8000
+docker run -d -p 8000:8000 -v $(pwd)/data:/app/data aegis-aml-backend
+```
+
+---
+
+## 🚀 One-Click Cloud Deployments
+
+AEGIS-AML is configured for effortless cloud hosting with persistent storage and optimized SPA routing.
+
+### Backend (Render Cloud Platform)
+AEGIS has a ready-made `render.yaml` Blueprint definition:
+1. Navigate to your **Render Dashboard** and select **New → Blueprint**.
+2. Connect your cloned GitHub repository.
+3. Render automatically maps:
+   * A **Python FastAPI Web Service** built via `Dockerfile`.
+   * A **1 GB Persistent Disk Volume** mounted at `/app/data` ensuring your `aegis.db` remains safe across dyno restarts.
+4. Click **Deploy**.
+
+### Frontend (Vercel Global Edge)
+AEGIS has pre-configured Vercel configurations (`vercel.json`) to redirect routes to `index.html` for clean React Router SPA pathing:
+1. Navigate to **Vercel Console** and import the repository.
+2. Select the `frontend` folder as the root directory.
+3. Under **Environment Variables**, add:
+   * **Key**: `VITE_API_BASE_URL`
+   * **Value**: Your Render Backend Service URL (e.g. `https://aegis-aml-backend.onrender.com`).
+4. Click **Deploy**.
