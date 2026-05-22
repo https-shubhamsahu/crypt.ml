@@ -7,6 +7,13 @@ export default function RuleEngine() {
   const [loading, setLoading] = useState(true);
   const [newRuleText, setNewRuleText] = useState('');
   const [adding, setAdding] = useState(false);
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth <= 768);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   useEffect(() => {
     loadRules();
@@ -53,7 +60,7 @@ export default function RuleEngine() {
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+      <div style={{ display: 'flex', flexDirection: isMobile ? 'column' : 'row', justifyContent: 'space-between', alignItems: isMobile ? 'flex-start' : 'center', gap: '1rem' }}>
         <div>
           <h2>Session Compliance Rules</h2>
           <p>Add custom heuristic checks or agent guidance tokens dynamically injected into compliance prompts.</p>
@@ -71,7 +78,8 @@ export default function RuleEngine() {
             alignItems: 'center',
             gap: '0.4rem',
             fontSize: '0.8rem',
-            fontWeight: 700
+            fontWeight: 700,
+            alignSelf: isMobile ? 'flex-end' : 'auto'
           }}
         >
           <Trash2 size={14} />
@@ -79,7 +87,7 @@ export default function RuleEngine() {
         </button>
       </div>
 
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1.6fr', gap: '2rem' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '1fr 1.6fr', gap: '2rem' }}>
         
         {/* Left Side: Create Rule */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>

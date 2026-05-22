@@ -14,6 +14,13 @@ export default function Overview() {
     averageRisk: 42.5,
     systemRecall: '94.2%'
   });
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth <= 768);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   useEffect(() => {
     async function loadData() {
@@ -156,7 +163,7 @@ export default function Overview() {
       </div>
 
       {/* Main Grid: Ledgers on Left, Charts on Right */}
-      <div style={{ display: 'grid', gridTemplateColumns: '1.3fr 1.2fr', gap: '1.5rem', marginTop: '2rem' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '1.3fr 1.2fr', gap: '1.5rem', marginTop: '2rem' }}>
         
         {/* Datasets Section */}
         <div>
@@ -180,8 +187,10 @@ export default function Overview() {
                     borderRadius: '12px', 
                     padding: '1.2rem',
                     display: 'flex',
+                    flexDirection: isMobile ? 'column' : 'row',
                     justifyContent: 'space-between',
-                    alignItems: 'center',
+                    alignItems: isMobile ? 'flex-start' : 'center',
+                    gap: isMobile ? '0.75rem' : '1rem',
                     transition: 'all 0.2s',
                     position: 'relative',
                     overflow: 'hidden'
@@ -190,15 +199,15 @@ export default function Overview() {
                 >
                   <div style={{ position: 'absolute', top: 0, left: 0, bottom: 0, width: '4px', background: dataset.status === 'Completed' ? '#10b981' : '#3b82f6' }}></div>
                   <div style={{ paddingLeft: '0.5rem' }}>
-                    <h4 style={{ margin: 0, fontSize: '0.92rem', fontWeight: 700, fontFamily: 'monospace' }}>{formatBatchName(dataset.name)}</h4>
-                    <div style={{ display: 'flex', gap: '1rem', marginTop: '0.35rem', fontSize: '0.75rem', color: 'var(--text-secondary)' }}>
+                    <h4 style={{ margin: 0, fontSize: '0.92rem', fontWeight: 700, fontFamily: 'monospace', wordBreak: 'break-all' }}>{formatBatchName(dataset.name)}</h4>
+                    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.6rem 1rem', marginTop: '0.35rem', fontSize: '0.75rem', color: 'var(--text-secondary)' }}>
                       <span>Size: <strong>{dataset.human_size || 'N/A'}</strong></span>
                       <span>Transactions: <strong>{dataset.total_rows?.toLocaleString() || 'N/A'}</strong></span>
                       <span>Cleared: <strong>{new Date(dataset.upload_date).toLocaleDateString()}</strong></span>
                     </div>
                   </div>
 
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', alignSelf: isMobile ? 'flex-end' : 'auto' }}>
                     <span style={{ 
                       fontSize: '0.7rem', 
                       fontWeight: 800, 

@@ -14,6 +14,14 @@ import {
 } from 'lucide-react';
 
 export default function AgentDashboard() {
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth <= 768);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   // Simulator State
   const [accountId, setAccountId] = useState('CHASE-US-DE-99201948');
   const [upiId, setUpiId] = useState('SEPA-DE-DB-8812903');
@@ -129,7 +137,7 @@ export default function AgentDashboard() {
         <p>Observe five autonomous compliance agents cooperating via the compliance EventBus to audit transactions.</p>
       </div>
 
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1.6fr', gap: '2rem' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '1fr 1.6fr', gap: '2rem' }}>
         
         {/* Left Side: Transaction Input & Simulator */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
@@ -215,7 +223,7 @@ export default function AgentDashboard() {
                 <span style={{ fontSize: '0.65rem', background: 'rgba(59, 130, 246, 0.12)', color: '#3b82f6', padding: '0.1rem 0.4rem', borderRadius: '4px' }}>MASTER</span>
               </div>
 
-              <div style={{ display: 'flex', gap: '1rem', width: '100%', justifyContent: 'space-around' }}>
+              <div style={{ display: 'flex', flexDirection: isMobile ? 'column' : 'row', gap: '1rem', width: '100%', justifyContent: 'space-around', alignItems: 'center' }}>
                 {/* RAW Compliance Agent Node */}
                 <div style={{ 
                   border: '2px solid',
@@ -227,6 +235,7 @@ export default function AgentDashboard() {
                   alignItems: 'center',
                   gap: '0.6rem',
                   flex: 1,
+                  width: isMobile ? '100%' : 'auto',
                   maxWidth: '180px',
                   justifyContent: 'center',
                   transition: 'all 0.3s'
@@ -246,6 +255,7 @@ export default function AgentDashboard() {
                   alignItems: 'center',
                   gap: '0.6rem',
                   flex: 1,
+                  width: isMobile ? '100%' : 'auto',
                   maxWidth: '180px',
                   justifyContent: 'center',
                   transition: 'all 0.3s'
@@ -255,7 +265,7 @@ export default function AgentDashboard() {
                 </div>
               </div>
 
-              <div style={{ display: 'flex', gap: '1rem', width: '100%', justifyContent: 'space-around' }}>
+              <div style={{ display: 'flex', flexDirection: isMobile ? 'column' : 'row', gap: '1rem', width: '100%', justifyContent: 'space-around', alignItems: 'center' }}>
                 {/* ML Scoring Agent Node */}
                 <div style={{ 
                   border: '2px solid',
@@ -267,6 +277,7 @@ export default function AgentDashboard() {
                   alignItems: 'center',
                   gap: '0.6rem',
                   flex: 1,
+                  width: isMobile ? '100%' : 'auto',
                   maxWidth: '180px',
                   justifyContent: 'center',
                   transition: 'all 0.3s'
@@ -286,6 +297,7 @@ export default function AgentDashboard() {
                   alignItems: 'center',
                   gap: '0.6rem',
                   flex: 1,
+                  width: isMobile ? '100%' : 'auto',
                   maxWidth: '180px',
                   justifyContent: 'center',
                   transition: 'all 0.3s'

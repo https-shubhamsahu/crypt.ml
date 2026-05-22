@@ -2592,3 +2592,138 @@ body {
     grid-template-columns: 1fr;
   }
 }
+
+/* ==========================================
+   crypt.ml Premium Mobile/Tablet Responsiveness Enhancements
+   ========================================== */
+
+/* Responsive Grid Utility */
+.responsive-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 1.5rem;
+}
+
+@media (max-width: 768px) {
+  .responsive-grid {
+    grid-template-columns: 1fr !important;
+    gap: 1rem !important;
+  }
+  
+  .hide-on-mobile {
+    display: none !important;
+  }
+  
+  .show-on-mobile {
+    display: block !important;
+  }
+  
+  .show-flex-on-mobile {
+    display: flex !important;
+  }
+
+  /* Table overflow container to prevent layout breakages */
+  .scrollable-table-container {
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    border-radius: 8px;
+    border: 1px solid var(--border-soft);
+    margin-bottom: 1rem;
+    background: var(--card-bg-alt);
+  }
+  
+  .scrollable-table-container table {
+    min-width: 650px; /* Force scrollable rather than squeezed */
+  }
+
+  /* Mobile sidebar drawer overlays */
+  .mobile-sidebar-drawer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 260px;
+    z-index: 999;
+    transform: translateX(-100%);
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 4px 0 24px rgba(0, 0, 0, 0.5);
+    background: var(--bg-main) !important;
+    border-right: 1px solid var(--border-soft) !important;
+    display: flex !important;
+    flex-direction: column !important;
+  }
+  
+  .mobile-sidebar-drawer.open {
+    transform: translateX(0) !important;
+  }
+  
+  .mobile-sidebar-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(15, 23, 42, 0.65);
+    backdrop-filter: blur(4px);
+    z-index: 998;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+  }
+  
+  .mobile-sidebar-backdrop.active {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  /* Mobile detail panel/bottom sheet */
+  .mobile-bottom-sheet {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    max-height: 85vh;
+    z-index: 1001;
+    background: var(--card-bg-alt);
+    backdrop-filter: blur(8px);
+    border-top: 1px solid var(--border-soft);
+    border-top-left-radius: 16px;
+    border-top-right-radius: 16px;
+    box-shadow: 0 -8px 32px rgba(0, 0, 0, 0.5);
+    overflow-y: auto;
+    padding: 1.5rem;
+    animation: slideUp 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  }
+  
+  .mobile-sheet-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(15, 23, 42, 0.7);
+    backdrop-filter: blur(3px);
+    z-index: 1000;
+  }
+
+  @keyframes slideUp {
+    from {
+      transform: translateY(100%);
+    }
+    to {
+      transform: translateY(0);
+    }
+  }
+
+  /* Force stack inline elements on smaller viewports */
+  .inline-row {
+    flex-direction: column !important;
+    gap: 1rem !important;
+  }
+  
+  .inline-row > div {
+    width: 100% !important;
+  }
+}
+

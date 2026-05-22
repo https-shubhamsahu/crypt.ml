@@ -38,8 +38,15 @@ export default function Assistant() {
   const [loading, setLoading] = useState(false);
   const [loadingHistory, setLoadingHistory] = useState(false);
   const [llmStatus, setLlmStatus] = useState({ enabled: true, model: 'phi3.5' });
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
 
   const messagesEndRef = useRef(null);
+
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth <= 768);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   // Load datasets on mount
   useEffect(() => {
@@ -180,9 +187,9 @@ export default function Assistant() {
   };
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem', height: 'calc(100vh - 7rem)' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem', height: isMobile ? 'auto' : 'calc(100vh - 7rem)' }}>
       {/* Header Row */}
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', minHeight: '3rem' }}>
+      <div style={{ display: 'flex', flexDirection: isMobile ? 'column' : 'row', justifyContent: 'space-between', alignItems: isMobile ? 'stretch' : 'center', minHeight: '3rem', gap: '1rem' }}>
         <div>
           <h2 style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
             <MessageSquare color="#3b82f6" />
@@ -193,7 +200,7 @@ export default function Assistant() {
           </p>
         </div>
 
-        <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'center' }}>
+        <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'center', alignSelf: isMobile ? 'flex-end' : 'auto' }}>
           {/* Dataset Scope Picker */}
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', background: 'var(--card-bg-alt)', border: '1px solid var(--border-soft)', padding: '0.35rem 0.75rem', borderRadius: '8px' }}>
             <Database size={14} color="var(--text-secondary)" />
@@ -243,7 +250,7 @@ export default function Assistant() {
       </div>
 
       {/* Main Split Layout */}
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 300px', gap: '1.5rem', flex: 1, overflow: 'hidden' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '1fr 300px', gap: '1.5rem', flex: 1, overflow: isMobile ? 'visible' : 'hidden' }}>
         
         {/* Left Side: Conversational Arena */}
         <div style={{ 
@@ -253,7 +260,8 @@ export default function Assistant() {
           display: 'flex', 
           flexDirection: 'column', 
           overflow: 'hidden',
-          position: 'relative'
+          position: 'relative',
+          height: isMobile ? '500px' : 'auto'
         }}>
           {/* Active Model Indicator */}
           <div style={{ 
@@ -395,7 +403,15 @@ export default function Assistant() {
               <span style={{ fontSize: '0.7rem', fontWeight: 800, color: 'var(--text-secondary)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
                 Prompt Suggestions
               </span>
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.5rem' }}>
+              <div style={{ 
+                display: isMobile ? 'flex' : 'grid', 
+                gridTemplateColumns: isMobile ? undefined : '1fr 1fr', 
+                flexDirection: isMobile ? 'row' : undefined,
+                overflowX: isMobile ? 'auto' : undefined,
+                whiteSpace: isMobile ? 'nowrap' : undefined,
+                gap: '0.5rem',
+                paddingBottom: isMobile ? '0.5rem' : 0
+              }}>
                 {suggestions.map((s, idx) => (
                   <button 
                     key={idx} 
@@ -413,7 +429,10 @@ export default function Assistant() {
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'space-between',
-                      gap: '0.4rem'
+                      gap: '0.4rem',
+                      flexShrink: isMobile ? 0 : 1,
+                      whiteSpace: isMobile ? 'normal' : undefined,
+                      width: isMobile ? '240px' : 'auto'
                     }}
                     className="hover-card"
                   >

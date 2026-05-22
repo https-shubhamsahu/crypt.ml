@@ -62,6 +62,13 @@ export default function Analysis() {
   const [loading, setLoading] = useState(true);
   const [selectedCase, setSelectedCase] = useState(null);
   const [updating, setUpdating] = useState(false);
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth <= 768);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   useEffect(() => {
     loadCases();
@@ -132,7 +139,7 @@ export default function Analysis() {
         </button>
       </div>
 
-      <div style={{ display: 'grid', gridTemplateColumns: selectedCase ? '1.5fr 1fr' : '1fr', gap: '2rem', transition: 'all 0.3s' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : (selectedCase ? '1.5fr 1fr' : '1fr'), gap: '2rem', transition: 'all 0.3s' }}>
         
         {/* Cases Audit Table */}
         <div style={{ border: '1px solid var(--border-soft)', background: 'var(--card-bg-alt)', borderRadius: '14px', padding: '1.5rem' }}>
@@ -141,7 +148,7 @@ export default function Analysis() {
           ) : cases.length === 0 ? (
             <div style={{ textAlign: 'center', padding: '3rem', color: 'var(--text-secondary)' }}>No escalated cases found. Pass passive scans complete.</div>
           ) : (
-            <div style={{ overflowX: 'auto' }}>
+            <div className="scrollable-table-container">
               <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.8rem' }}>
                 <thead>
                   <tr style={{ borderBottom: '1px solid var(--border-soft)', textAlign: 'left' }}>
@@ -224,7 +231,21 @@ export default function Analysis() {
 
         {/* Selected Case Side Inspector Drawer */}
         {selectedCase && (
-          <div style={{ border: '1px solid var(--border-soft)', background: 'var(--card-bg-alt)', borderRadius: '14px', padding: '1.5rem', display: 'flex', flexDirection: 'column', gap: '1.25rem', height: 'fit-content' }}>
+          <>
+            {isMobile && <div className="mobile-sheet-backdrop" onClick={() => setSelectedCase(null)} />}
+            <div 
+              className={isMobile ? "mobile-bottom-sheet" : ""}
+              style={{ 
+                border: '1px solid var(--border-soft)', 
+                background: 'var(--card-bg-alt)', 
+                borderRadius: isMobile ? '16px 16px 0 0' : '14px', 
+                padding: '1.5rem', 
+                display: 'flex', 
+                flexDirection: 'column', 
+                gap: '1.25rem', 
+                height: isMobile ? 'auto' : 'fit-content' 
+              }}
+            >
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid var(--border-soft)', paddingBottom: '0.8rem' }}>
               <div>
                 <h3 style={{ margin: 0, fontSize: '0.98rem', fontWeight: 800 }}>Audit File ID: {selectedCase.case_id.slice(0, 8)}</h3>
@@ -358,7 +379,8 @@ export default function Analysis() {
                 {generateSARReport(selectedCase)}
               </div>
             </div>
-          </div>
+            </div>
+          </>
         )}
 
       </div>

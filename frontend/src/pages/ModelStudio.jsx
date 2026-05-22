@@ -41,6 +41,13 @@ export default function ModelStudio() {
   });
   const [generatorBusy, setGeneratorBusy] = useState(false);
   const [schemas, setSchemas] = useState({});
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth <= 768);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   useEffect(() => {
     loadModelStudioAssets();
@@ -164,7 +171,7 @@ export default function ModelStudio() {
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+      <div style={{ display: 'flex', flexDirection: isMobile ? 'column' : 'row', justifyContent: 'space-between', alignItems: isMobile ? 'flex-start' : 'center', gap: '1rem' }}>
         <div>
           <h2 style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
             <Binary color="#3b82f6" />
@@ -187,7 +194,8 @@ export default function ModelStudio() {
             alignItems: 'center',
             gap: '0.4rem',
             fontSize: '0.8rem',
-            fontWeight: 600
+            fontWeight: 600,
+            alignSelf: isMobile ? 'flex-end' : 'auto'
           }}
         >
           <RefreshCw size={14} />
@@ -202,8 +210,10 @@ export default function ModelStudio() {
         borderRadius: '14px', 
         padding: '1.25rem',
         display: 'flex',
+        flexDirection: isMobile ? 'column' : 'row',
         justifyContent: 'space-between',
-        alignItems: 'center',
+        alignItems: isMobile ? 'stretch' : 'center',
+        gap: '1rem',
         position: 'relative',
         overflow: 'hidden'
       }}>
@@ -227,9 +237,9 @@ export default function ModelStudio() {
           </div>
         </div>
 
-        <div style={{ display: 'flex', gap: '1.5rem', alignItems: 'center' }}>
+        <div style={{ display: 'flex', flexDirection: isMobile ? 'column' : 'row', gap: '1.5rem', alignItems: isMobile ? 'flex-start' : 'center' }}>
           {modelInfo?.metadata && (
-            <div style={{ display: 'flex', gap: '1.5rem', fontSize: '0.8rem' }}>
+            <div style={{ display: 'flex', flexDirection: isMobile ? 'column' : 'row', gap: isMobile ? '0.6rem' : '1.5rem', fontSize: '0.8rem', width: isMobile ? '100%' : 'auto' }}>
               <div>
                 <span style={{ color: 'var(--text-secondary)', display: 'block', fontSize: '0.7rem' }}>ROC-AUC</span>
                 <strong style={{ fontSize: '1.1rem', color: '#10b981' }}>{modelInfo.metadata.roc_auc ? parseFloat(modelInfo.metadata.roc_auc).toFixed(4) : 'N/A'}</strong>
@@ -252,7 +262,8 @@ export default function ModelStudio() {
             borderRadius: '6px',
             background: modelInfo?.model_available ? 'rgba(16, 185, 129, 0.12)' : 'rgba(245, 158, 11, 0.12)',
             color: modelInfo?.model_available ? '#10b981' : '#f59e0b',
-            border: '1px solid currentColor'
+            border: '1px solid currentColor',
+            alignSelf: isMobile ? 'flex-end' : 'auto'
           }}>
             {modelInfo?.model_available ? 'TRAINED' : 'STANDBY'}
           </span>
@@ -260,7 +271,7 @@ export default function ModelStudio() {
       </div>
 
       {/* Main Split Grid */}
-      <div style={{ display: 'grid', gridTemplateColumns: '1.2fr 1fr', gap: '2rem' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '1.2fr 1fr', gap: isMobile ? '1rem' : '2rem' }}>
         
         {/* Left Side: Model Studio Training and Feature Analysis */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
@@ -277,7 +288,7 @@ export default function ModelStudio() {
 
             <div style={{ height: '240px', width: '100%' }}>
               <ResponsiveContainer width="100%" height="100%">
-                <BarChart data={shapChartData} layout="vertical" margin={{ top: 5, right: 30, left: 40, bottom: 5 }}>
+                <BarChart data={shapChartData} layout="vertical" margin={{ top: 5, right: 30, left: isMobile ? 10 : 40, bottom: 5 }}>
                   <XAxis type="number" stroke="var(--text-secondary)" fontSize={10} tickLine={false} />
                   <YAxis type="category" dataKey="feature" stroke="var(--text-secondary)" fontSize={10} tickLine={false} />
                   <Tooltip contentStyle={{ background: 'var(--bg-main)', borderColor: 'var(--border-soft)' }} />
@@ -349,7 +360,7 @@ export default function ModelStudio() {
                 </div>
               )}
 
-              <div className="inline-row" style={{ display: 'flex', gap: '1rem' }}>
+              <div className="inline-row" style={{ display: 'flex', flexDirection: isMobile ? 'column' : 'row', gap: '1rem' }}>
                 <div className="form-group" style={{ flex: 1 }}>
                   <label>Target Decision Recall Threshold</label>
                   <input 
@@ -431,8 +442,8 @@ export default function ModelStudio() {
                 />
               </div>
 
-              <div className="inline-row">
-                <div className="form-group">
+              <div className="inline-row" style={{ display: 'flex', flexDirection: isMobile ? 'column' : 'row', gap: '1rem' }}>
+                <div className="form-group" style={{ flex: 1 }}>
                   <label>Suspicious Fraud Ratio (%)</label>
                   <input 
                     type="number" 
@@ -444,7 +455,7 @@ export default function ModelStudio() {
                     required 
                   />
                 </div>
-                <div className="form-group">
+                <div className="form-group" style={{ flex: 1 }}>
                   <label>Random Generator Seed</label>
                   <input 
                     type="number" 
