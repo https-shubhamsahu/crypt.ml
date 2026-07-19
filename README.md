@@ -11,6 +11,16 @@
 
 crypt.ml is a production-ready, local-first **Autonomous Multi-Agent Anti-Money Laundering (AML)** and Counter-Financing of Terrorism (CFT) platform. Built to move beyond rigid, legacy rule-based triggers, crypt.ml implements an event-driven cooperative network of specialized AI agents, real-time transaction network graphs, predictive machine learning (XGBoost + local SHAP explanation features), and interactive compliance tools inside a premium, glassmorphic dark-mode dashboard.
 
+## Features
+
+- **Five specialized AI agents** coordinating over an async EventBus (rules, NLP, ML, graph analysis, SAR drafting)
+- **Explainable ML risk scoring** — in-process XGBoost classifier with local SHAP contribution vectors
+- **Network graph analysis** — NetworkX-based transaction subgraphs, Louvain clustering, cycle detection for laundering topology
+- **Automated SAR drafting** — structured, legally-formatted Suspicious Activity Reports for escalated cases
+- **Full audit trail** — every decision persisted to a SQLite registry
+- **Interactive compliance dashboard** — rule sandbox, model studio, case manager, AI assistant
+- **199/199 passing backend tests**, Dockerized, one-click Render/Vercel deployment
+
 ---
 
 ## 🎨 System Showcase & Visual Preview
@@ -257,3 +267,38 @@ crypt.ml has pre-configured Vercel configurations (`vercel.json`) to redirect ro
    * **Key**: `VITE_API_BASE_URL`
    * **Value**: Your Render Backend Service URL (e.g. `https://crypt.ml-backend.onrender.com`).
 4. Click **Deploy**.
+
+---
+
+## Project Structure
+
+```
+app/
+├── main.py                 # FastAPI entrypoint
+├── agents/                 # BaseAgent framework + 6 specialized agents
+│   ├── framework.py
+│   ├── orchestrator_agent.py
+│   ├── raw_agent.py
+│   ├── nlp_agent.py
+│   ├── ml_agent.py
+│   ├── graph_agent.py
+│   └── sar_agent.py
+├── api/                     # FastAPI routers
+├── core/                    # config, database, sharing config
+├── schemas/                 # Pydantic models
+└── services/                 # agentic pipeline, ML/NLP/graph services, risk aggregation
+
+frontend/
+└── src/                      # React + Vite dashboard (Overview, AgentDashboard, CaseManager, RuleSandbox, ModelStudio, AIAssistant)
+
+artifacts/                    # trained ML model, SHAP summary, metadata
+data/                          # SQLite DB, datasets, chat history, session rules
+```
+
+## Contributing
+
+Fork the repository, create a feature branch, and open a pull request. Run `pytest` and `flake8 app/ tests/` before submitting.
+
+## License
+
+No license file is currently present in this repository.
